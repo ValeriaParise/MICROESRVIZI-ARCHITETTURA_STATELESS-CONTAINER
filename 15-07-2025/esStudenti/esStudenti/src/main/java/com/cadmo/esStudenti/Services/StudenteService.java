@@ -4,6 +4,7 @@ import com.cadmo.esStudenti.Models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudenteService {
@@ -17,24 +18,24 @@ public class StudenteService {
         return studenteDAO.aggiungiStudente(s);
     }
 
-    public Studente cercaPerID(int id){
+    public Optional<Studente> cercaPerID(int id){
         return studenteDAO.cercaPerId(id);
     }
 
     public List<Studente> cercaTutti(){
-        return  studenteDAO.mostraStudenti();
+        return  studenteDAO.mostraTutti();
     }
 
-    public Studente modificaStudente(Studente s){
+    public Optional<Studente> modificaStudente(Studente s){
         return studenteDAO.modificaStudente(s);
     }
 
-    public void rimuoviStudente(int id){
-         studenteDAO.rimuoviStudenteId(id);
+    public boolean rimuoviStudente(int id){
+         return studenteDAO.rimuoviStudenteId(id);
     }
 
-    public void eliminaTutti(){
-        studenteDAO.eliminaStudenti();
+    public boolean eliminaTutti(){
+        return studenteDAO.eliminaStudenti();
     }
     public double calcolaRetta(int id){
         return studenteDAO.importoRetta(id);

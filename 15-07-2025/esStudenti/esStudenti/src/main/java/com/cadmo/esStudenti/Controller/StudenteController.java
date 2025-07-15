@@ -2,12 +2,15 @@ package com.cadmo.esStudenti.Controller;
 
 import com.cadmo.esStudenti.Models.Studente;
 import com.cadmo.esStudenti.Services.StudenteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class StudenteController {
+    @Autowired
     private final StudenteService service;
 
     public StudenteController(StudenteService service) {
@@ -16,39 +19,41 @@ public class StudenteController {
 
 
     @PostMapping("/aggiungiStudente")
-    public Studente aggiungiStudente(Studente s){
+    public Studente aggiungiStudente(@RequestBody Studente s){
         return service.aggiungi(s);
     }
 
-    @GetMapping("/cerca/{id}")
-    public Studente cercaPerID(@PathVariable int id) {
+
+    ///cerca?id=3
+    @GetMapping("/cerca")
+    public Optional<Studente> cercaPerID(@RequestParam int id) {
         return  service.cercaPerID(id);
     }
 
-    @GetMapping("/studentiFindAll")
+    @GetMapping("/lista")
     public List<Studente> cercaStudenti(){
         return service.cercaTutti();
     }
 
-    @PutMapping("/modificaStudente{id}")
-    public Studente modificaStudente(@PathVariable int id, @PathVariable Studente s){
-        s.setId(id);
+    @PutMapping("/modificaStudente")
+    public Optional<Studente> modificaStudente(@RequestParam int id, @RequestBody Studente s){
+        //s.setId(id);
         return service.modificaStudente(s);
     }
 
-    @PutMapping("/{id}/retta")
-        public double calcolaRetta(@PathVariable int id){
+    @PutMapping("/retta")
+        public double calcolaRetta(@RequestParam int id){
             return service.calcolaRetta(id);
         }
 
 
-    @DeleteMapping("/rimuovi{id}")
-    public void rimuoviStudente(@PathVariable int id){
-        service.rimuoviStudente(id);
+    @DeleteMapping("/rimuovi")
+    public boolean rimuoviStudente(@RequestParam int id){
+        return service.rimuoviStudente(id);
     }
 
     @DeleteMapping("/rimuoviTutti")
-    public void rimuoviTutti(){
-        service.eliminaTutti();
+    public boolean rimuoviTutti(){
+        return service.eliminaTutti();
     }
 }

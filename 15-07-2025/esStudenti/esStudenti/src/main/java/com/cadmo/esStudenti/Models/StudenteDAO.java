@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Optional;
 
 @Repository
 public class StudenteDAO {
@@ -24,45 +24,44 @@ public class StudenteDAO {
     }
 
     //Cerca
-    public Studente cercaPerId(int id){
-        return (Studente) studenti.stream().filter((s -> s.getId()==id));
+    public Optional<Studente> cercaPerId(int id){
+        return studenti.stream()
+                .filter(s -> s.getId()==id).findFirst();
     }
 
     //Mostra tutti
-    public List<Studente> mostraStudenti(){
+    public List<Studente> mostraTutti(){
         return studenti;
     }
 
     //Modifica uno
-    public Studente modificaStudente(Studente s){
-        for (Studente originale : studenti){
-            if (originale.getId() == s.getId())
-            {
+    public Optional<Studente> modificaStudente(Studente s){
+        Optional<Studente> studenteEsistente = studenti.stream().filter(stud-> stud.getId() == s.getId()).findFirst();
+        if(studenteEsistente.isPresent()){
+            Studente originale = studenteEsistente.get();
                 originale.setCognome(s.getCognome());
                 originale.setNome(s.getNome());
                 originale.setFuoricorso(s.isFuoricorso());
                 originale.setCorsoDiStudi(s.getCorsoDiStudi());
                 originale.setRettaAnnuale(s.getRettaAnnuale());
-            }
-            System.out.println("Update avvenuto con successo");
-            return originale;
+                return Optional.of(originale);
         }
-        return null;
+        return Optional.empty();
     }
 
     //Elimina per id
-    public void rimuoviStudenteId(int id){
-        Studente daRimuovere = cercaPerId(id);
-       if (studenti.contains(daRimuovere)){
-           studenti.remove(id);
-           System.out.println("Studente rimosso con successo");
+    public boolean rimuoviStudenteId(int id){
+        for(Studente s : studenti){
+            if (s.getId() == id){ return studenti.remove(s);}
         }
-        System.out.println("Studente non trovato");
+        return false;
     }
 
     //elimina tutti
-    public void eliminaStudenti(){
-        studenti.clear();
+    public boolean eliminaStudenti(){
+        if (studenti.isEmpty()){return  false;}
+        else{studenti.clear();
+        return true;}
     }
 
     //Retta
