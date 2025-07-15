@@ -1,0 +1,18 @@
+package com.cadmo.esStudenti.Models;
+
+public enum CorsoDiStudi {
+    INFORMATICA,
+    MATEMATICA,
+    FISICA,
+    CHIMICA,
+    INGEGNERIA_EDILE,
+    INGEGNERIA_INFORMATICA,
+    INGEGNERIA_MECCANICA,
+    INGEGNERIA_GESTIONALE,
+    ECONOMIA,
+    LETTERE,
+    STORIA,
+    MEDICINA,
+    LINGUE
+
+}
