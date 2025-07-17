@@ -1,5 +1,6 @@
 package com.cadmo.esStudenti.Controller;
 
+import com.cadmo.esStudenti.Models.Esame;
 import com.cadmo.esStudenti.Models.Studente;
 import com.cadmo.esStudenti.Services.StudenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,10 @@ public class StudenteController {
         this.service = service;
     }
 
-
     @PostMapping("/aggiungiStudente")
     public Studente aggiungiStudente(@RequestBody Studente s){
         return service.aggiungiStudente(s);
     }
-
 
     ///cerca?id=3
     @GetMapping("/cercaStudente")
@@ -32,9 +31,30 @@ public class StudenteController {
         return  service.cercaStudentePerID(id);
     }
 
-    @GetMapping("/lista")
+    @GetMapping("/listaStudenti")
     public List<Studente> listaStudenti(){
         return service.cercaTutti();
+    }
+
+    @GetMapping("/retta")
+    public double calcolaRetta(@RequestParam int id){
+        return service.calcolaRetta(id);
+    }
+
+    @GetMapping("/listaEsamiStudente")
+    public List<Esame> listaEsamiPerStudente(@RequestParam int id){return  service.listaEsamiPerStudente(id);}
+
+    @GetMapping("/esamiSostenuti")
+    public List<Esame> listaEsamiSostenutiStudente(@RequestParam int id){
+        return  service.listaEsamiSostenutiStudente(id);
+    }
+
+    @GetMapping("/esamiDaSostenere")
+    public List<Esame> listaEsamiDaSostenereStudente(int idStudente){return service.listaEsamiDaSostenereStudente(idStudente);}
+
+    @GetMapping ("/mediavoti")
+    public double mediaVotiPerStudente(@RequestParam int id){
+        return service.mediaVotiPerStudente(id);
     }
 
     @PutMapping("/modificaStudente")
@@ -43,10 +63,11 @@ public class StudenteController {
         return service.modificaStudente(id,s);
     }
 
-    @PutMapping("/retta")
-        public double calcolaRetta(@RequestParam int id){
-            return service.calcolaRetta(id);
-        }
+    @PutMapping("/aggiornaStatoEsame")
+    public boolean aggiornaStatoEsame(@RequestParam int idStudente,
+                                  @RequestParam int idEsame ,
+                                      @RequestParam boolean newStato) {
+        return service.aggiornaStatoEsame(idStudente, idEsame, newStato);}
 
 
     @DeleteMapping("/rimuoviStudenteID")

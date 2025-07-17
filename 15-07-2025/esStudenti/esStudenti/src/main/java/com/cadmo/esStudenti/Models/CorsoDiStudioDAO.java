@@ -1,0 +1,54 @@
+package com.cadmo.esStudenti.Models;
+
+
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Component
+public class CorsoDiStudioDAO {
+    private int c_counter = 0;
+    private List<CorsoDiStudio> corsiDiStudio = new ArrayList<>();
+
+    // ISTANZE IN COSTRUTTORE
+
+
+    public List<CorsoDiStudio> getCorsiDiStudio() {
+        return corsiDiStudio;
+    }
+
+    public Optional<CorsoDiStudio> cercaCorsoPerID(int id){
+        return corsiDiStudio.stream().filter(corso -> corso.getIdCorso() == id).findFirst();
+    }
+
+    public CorsoDiStudio aggiungiCorsoDiStudio(CorsoDiStudio corso){
+        if(!corsiDiStudio.contains(corso)){
+            corso.setIdCorso(c_counter++);
+            corsiDiStudio.add(corso);
+            return corso;
+        }
+        return null;
+    }
+
+    public Optional<CorsoDiStudio> modificaCorsoDiStudi(int idcorso, CorsoDiStudio corso){
+        Optional<CorsoDiStudio> corsoEsistente = cercaCorsoPerID(idcorso);
+        if(corsoEsistente.isPresent()){
+            CorsoDiStudio originale = corsoEsistente.get();
+            originale.setNomeCorso(corso.getNomeCorso());
+            originale.setDurata(corso.getDurata());
+            originale.setEsamiCorso(corso.getEsamiCorso());
+            return Optional.of(originale);
+        }
+        return Optional.empty();
+    }
+
+    public boolean rimuoviCorsoDiStudi(int id){
+        Optional<CorsoDiStudio> corsoDaEliminare = cercaCorsoPerID(id);
+        if(!corsoDaEliminare.isEmpty()){
+            return corsiDiStudio.remove(corsoDaEliminare);
+    }
+        else return false;
+    }
+}

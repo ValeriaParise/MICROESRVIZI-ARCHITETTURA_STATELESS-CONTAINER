@@ -40,4 +40,22 @@ public class StudenteService {
     public double calcolaRetta(int id){
         return studenteDAO.importoRetta(id);
     }
+
+    public boolean aggiornaStatoEsame(int idStudente, int idEsame, boolean newStato){
+        return studenteDAO.aggiornaStatoEsame(idStudente,idEsame,newStato);
+    }
+
+    public List<Esame> listaEsamiPerStudente(int idStudente){
+        return studenteDAO.listaEsamiPerStudente(idStudente);
+    }
+
+    public List<Esame> listaEsamiSostenutiStudente(int idStudente){return studenteDAO.listaEsamiSostenutiStudente(idStudente);}
+
+    public List<Esame> listaEsamiDaSostenereStudente(int idStudente){return studenteDAO.listaEsamiDaSostenereStudente(idStudente);}
+
+    public double mediaVotiPerStudente(int idStudente){return studenteDAO.mediaVotiPerStudente(idStudente);}
+
+
+
+
 }

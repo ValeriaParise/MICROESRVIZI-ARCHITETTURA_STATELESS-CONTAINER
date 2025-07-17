@@ -1,18 +1,24 @@
 package com.cadmo.esStudenti.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Studente {
     private int id;
     private String nome;
     private String cognome;
-    private Corsi corsoDiStudi;
+    private String corsoDiStudio;
     private boolean fuoricorso = false;
     private double rettaAnnuale = 300.00;
 
-    public Studente(int id, String nome, String cognome, Corsi corsi){
+    // Collego lo studente con Esami
+    private List<Esame> esamiStudente = new ArrayList<>();
+
+    public Studente(int id, String nome, String cognome, String corsoDiStudio){
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
-        this.corsoDiStudi = corsi;
+        this.corsoDiStudio = corsoDiStudio;
     }
 
     public int getId() {
@@ -39,12 +45,12 @@ public class Studente {
         this.cognome = cognome;
     }
 
-    public Corsi getCorsoDiStudi() {
-        return corsoDiStudi;
+    public String getCorsoDiStudio() {
+        return corsoDiStudio;
     }
 
-    public void setCorsoDiStudi(Corsi corsi) {
-        this.corsoDiStudi = corsi;
+    public void setCorsoDiStudio(String corsoDiStudio) {
+        this.corsoDiStudio = corsoDiStudio;
     }
 
     public double getRettaAnnuale() {
@@ -58,8 +64,17 @@ public class Studente {
     public boolean isFuoricorso() {
         return fuoricorso;
     }
+
     public void setFuoricorso(boolean fuoricorso) {
         this.fuoricorso = fuoricorso;
+    }
+
+    public List<Esame> getEsamiStudente() {
+        return esamiStudente;
+    }
+
+    public void setEsamiStudente(List<Esame> esamiStudente) {
+        this.esamiStudente = esamiStudente;
     }
 
     @Override
@@ -69,7 +84,7 @@ public class Studente {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
-                ", corsoDiStudi=" + corsoDiStudi +
+                ", corsoDiStudi=" + corsoDiStudio +
                 ", fuoricorso=" + (isFuoricorso()? "fuori corso" : "in corso" ) +
                 ", rettaAnnuale=" + rettaAnnuale;
     }

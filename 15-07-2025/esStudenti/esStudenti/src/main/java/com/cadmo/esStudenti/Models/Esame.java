@@ -25,10 +25,17 @@ public class Esame {
         this.nome = nome;
         this.data = data;
         this.voto = voto;
-
         //this.voto = Math.round(voto*10)/10;//arrotonamento ad 1 cifra decimale;
         this.crediti = crediti;
         this.sostenuto = sostenuto;
+    }
+    public Esame(int idEsame, String nome, LocalDate data, int voto, int crediti) {
+        this.idEsame = idEsame;
+        this.nome = nome;
+        this.data = data;
+        this.voto = voto;
+        this.crediti = crediti;
+        this.sostenuto = false; //SE NON PASSO SOSTENUTO é FALSE DI DEF.
     }
 
     public int getIdEsame() {
@@ -55,7 +62,7 @@ public class Esame {
         this.data = data;
     }
 
-    public double getVoto() {
+    public int getVoto() {
         return voto;
     }
 

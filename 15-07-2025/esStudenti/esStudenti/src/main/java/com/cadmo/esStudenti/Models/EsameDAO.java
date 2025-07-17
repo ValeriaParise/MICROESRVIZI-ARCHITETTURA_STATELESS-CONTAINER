@@ -16,23 +16,25 @@ public class EsameDAO {
 
 
     // AGGIUNGERLI QUI GLI ESMAI
-    public EsameDAO() {
+    public EsameDAO(List<Esame> listaEsami) {
 // Studente 1 (Mario Rossi)
-    listaEsami.add(new Esame(1, "Analisi 1", LocalDate.of(2024, 3, 15), 28.7, 9, true));
-    listaEsami.add(new Esame(2, "Programmazione", LocalDate.of(2024, 4, 10), 30.0, 6, true));
-    listaEsami.add(new Esame(3, "Algebra", LocalDate.of(2024, 5, 5), 27.5, 6, true));
+    listaEsami.add(new Esame(1, "Analisi 1", LocalDate.of(2024, 3, 15), 28, 9, true));
+    listaEsami.add(new Esame(2, "Programmazione", LocalDate.of(2024, 4, 10), 30, 6, true));
+    listaEsami.add(new Esame(3, "Algebra", LocalDate.of(2024, 5, 5), 27, 6, true));
 
     // Studente 2 (Lucia Bianchi)
-    listaEsami.add(new Esame(4,  "Microeconomia", LocalDate.of(2024, 3, 12), 26.3, 6, true));
-    listaEsami.add(new Esame(5,  "Matematica Finanziaria", LocalDate.of(2024, 4, 22), 29.0, 9, true));
-    listaEsami.add(new Esame(6,  "Statistica", LocalDate.of(2024, 5, 17), 25.5, 6, true));
+    listaEsami.add(new Esame(4,  "Microeconomia", LocalDate.of(2024, 3, 12), 26, 6, true));
+    listaEsami.add(new Esame(5,  "Matematica Finanziaria", LocalDate.of(2024, 4, 22), 29, 9, true));
+    listaEsami.add(new Esame(6,  "Statistica", LocalDate.of(2024, 5, 17), 25, 6, true));
 
     // Studente 3 (Giovanni Verdi)
-    listaEsami.add(new Esame(7,  "Fisica 1", LocalDate.of(2024, 3, 20), 24.8, 6, true));
-    listaEsami.add(new Esame(8,  "Meccanica", LocalDate.of(2024, 4, 25), 27.0, 9, true));
-    listaEsami.add(new Esame(9,  "Disegno Tecnico", LocalDate.of(2024, 5, 30), 28.0, 6, true));
-    listaEsami.add(new Esame(10,  "Matematica 2", LocalDate.of(2024, 6, 15), 29.5, 9, true));
-}
+    listaEsami.add(new Esame(7,  "Fisica 1", LocalDate.of(2024, 3, 20), 24, 6, true));
+    listaEsami.add(new Esame(8,  "Meccanica", LocalDate.of(2024, 4, 25), 27, 9, true));
+    listaEsami.add(new Esame(9,  "Disegno Tecnico", LocalDate.of(2024, 5, 30), 28, 6, true));
+    listaEsami.add(new Esame(10,  "Matematica 2", LocalDate.of(2024, 6, 15), 29, 9, true));
+
+    this.listaEsami = listaEsami;
+    }
 
     public List<Esame> getListaEsami(){
         return listaEsami;
@@ -49,8 +51,8 @@ public class EsameDAO {
             return e;
         }
         return  null;
-
     }
+
     public Optional<Esame> modificaEsame(int idex, Esame e){
         Optional<Esame> esameEsistente = cercaEsamePerID(idex);
         if(esameEsistente.isPresent()){
@@ -82,5 +84,6 @@ public class EsameDAO {
         else{listaEsami.clear();
             return true;}
     }
-    
+
+
 }
