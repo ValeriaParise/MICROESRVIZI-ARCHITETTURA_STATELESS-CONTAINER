@@ -1,18 +1,30 @@
 package com.cadmo.esStudenti.Models;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Component
 public class StudenteDAO {
 
     public List<Studente> studenti = new ArrayList<>();
-    int counter = 0;
+    int counter = 11;
 
-
+    public StudenteDAO(){
+        studenti.add(new Studente(1, "Mario", "Rossi", CorsoDiStudi.INFORMATICA));
+        studenti.add(new Studente(2, "Lucia", "Bianchi", CorsoDiStudi.ECONOMIA));
+        studenti.add(new Studente(3, "Giovanni", "Verdi", CorsoDiStudi.INGEGNERIA_INFORMATICA));
+        studenti.add(new Studente(4, "Chiara", "Neri", CorsoDiStudi.CHIMICA));
+        studenti.add(new Studente(5, "Marco", "Russo", CorsoDiStudi.MEDICINA));
+        studenti.add(new Studente(6, "Sara", "Costa", CorsoDiStudi.INFORMATICA));
+        studenti.add(new Studente(7, "Paolo", "Ferrari", CorsoDiStudi.INGEGNERIA_MECCANICA));
+        studenti.add(new Studente(8, "Elena", "Gallo", CorsoDiStudi.FISICA));
+        studenti.add(new Studente(9, "Luca", "Fontana", CorsoDiStudi.MEDICINA));
+        studenti.add(new Studente(10, "Giulia", "Moretti", CorsoDiStudi.LETTERE));
+    }
     // Aggiungi studente
     public Studente aggiungiStudente(Studente studente){
         if(!studenti.contains(studente)){
@@ -34,9 +46,10 @@ public class StudenteDAO {
         return studenti;
     }
 
+
     //Modifica uno
-    public Optional<Studente> modificaStudente(Studente s){
-        Optional<Studente> studenteEsistente = studenti.stream().filter(stud-> stud.getId() == s.getId()).findFirst();
+    public Optional<Studente> modificaStudente(int idStud, Studente s){
+        Optional<Studente> studenteEsistente = cercaPerId(idStud);
         if(studenteEsistente.isPresent()){
             Studente originale = studenteEsistente.get();
                 originale.setCognome(s.getCognome());
