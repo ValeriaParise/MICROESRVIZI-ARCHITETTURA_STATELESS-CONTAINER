@@ -14,11 +14,11 @@ public class StudenteService {
         this.studenteDAO = studenteDAO;
     }
 
-    public Studente aggiungi(Studente s){
+    public Studente aggiungiStudente(Studente s){
         return studenteDAO.aggiungiStudente(s);
     }
 
-    public Optional<Studente> cercaPerID(int id){
+    public Optional<Studente> cercaStudentePerID(int id){
         return studenteDAO.cercaPerId(id);
     }
 
@@ -26,15 +26,15 @@ public class StudenteService {
         return  studenteDAO.mostraTutti();
     }
 
-    public Optional<Studente> modificaStudente(Studente s){
-        return studenteDAO.modificaStudente(s);
+    public Optional<Studente> modificaStudente(int id,Studente s){
+        return studenteDAO.modificaStudente(id,s);
     }
 
     public boolean rimuoviStudente(int id){
          return studenteDAO.rimuoviStudenteId(id);
     }
 
-    public boolean eliminaTutti(){
+    public boolean eliminaTuttiStudenti(){
         return studenteDAO.eliminaStudenti();
     }
     public double calcolaRetta(int id){

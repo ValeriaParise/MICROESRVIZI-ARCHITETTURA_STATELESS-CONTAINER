@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/studenti")
+
 public class StudenteController {
     @Autowired
     private final StudenteService service;
@@ -20,25 +22,25 @@ public class StudenteController {
 
     @PostMapping("/aggiungiStudente")
     public Studente aggiungiStudente(@RequestBody Studente s){
-        return service.aggiungi(s);
+        return service.aggiungiStudente(s);
     }
 
 
     ///cerca?id=3
-    @GetMapping("/cerca")
-    public Optional<Studente> cercaPerID(@RequestParam int id) {
-        return  service.cercaPerID(id);
+    @GetMapping("/cercaStudente")
+    public Optional<Studente> cercaStudentePerID(@RequestParam int id) {
+        return  service.cercaStudentePerID(id);
     }
 
     @GetMapping("/lista")
-    public List<Studente> cercaStudenti(){
+    public List<Studente> listaStudenti(){
         return service.cercaTutti();
     }
 
     @PutMapping("/modificaStudente")
     public Optional<Studente> modificaStudente(@RequestParam int id, @RequestBody Studente s){
         //s.setId(id);
-        return service.modificaStudente(s);
+        return service.modificaStudente(id,s);
     }
 
     @PutMapping("/retta")
@@ -47,13 +49,13 @@ public class StudenteController {
         }
 
 
-    @DeleteMapping("/rimuovi")
+    @DeleteMapping("/rimuoviStudenteID")
     public boolean rimuoviStudente(@RequestParam int id){
         return service.rimuoviStudente(id);
     }
 
-    @DeleteMapping("/rimuoviTutti")
-    public boolean rimuoviTutti(){
-        return service.eliminaTutti();
+    @DeleteMapping("/rimuoviStudenti")
+    public boolean rimuoviTuttiStudenti(){
+        return service.eliminaTuttiStudenti();
     }
 }

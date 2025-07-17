@@ -42,11 +42,14 @@ public class EsameDAO {
         return listaEsami.stream().filter(esame -> esame.getIdEsame() == id).findFirst();
     }
 
-    public void aggiungiEsame(Esame e){
+    public Esame aggiungiEsame(Esame e){
         if(!listaEsami.contains(e)){
             e.setIdEsame(e_counter++);
             listaEsami.add(e);
+            return e;
         }
+        return  null;
+
     }
     public Optional<Esame> modificaEsame(int idex, Esame e){
         Optional<Esame> esameEsistente = cercaEsamePerID(idex);
