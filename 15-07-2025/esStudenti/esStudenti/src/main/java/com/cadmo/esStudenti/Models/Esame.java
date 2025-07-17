@@ -16,15 +16,17 @@ public class Esame {
     private int idEsame;
     private String nome;
     private LocalDate data;
-    private double voto;
+    private int voto;
     private int crediti;
     private boolean sostenuto;
 
-    public Esame(int idEsame, String nome, LocalDate data, double voto, int crediti, boolean sostenuto) {
+    public Esame(int idEsame, String nome, LocalDate data, int voto, int crediti, boolean sostenuto) {
         this.idEsame = idEsame;
         this.nome = nome;
         this.data = data;
-        this.voto = Math.round(voto*10)/10; //arrotonamento ad 1 cifra decimale;
+        this.voto = voto;
+
+        //this.voto = Math.round(voto*10)/10;//arrotonamento ad 1 cifra decimale;
         this.crediti = crediti;
         this.sostenuto = sostenuto;
     }
@@ -57,8 +59,8 @@ public class Esame {
         return voto;
     }
 
-    public void setVoto(double voto) {
-        this.voto = (double) Math.round(voto * 10) /10; //arrotonamento ad 1 cifra decimale;
+    public void setVoto(int voto) {
+        this.voto = voto;
     }
 
     public int getCrediti() {

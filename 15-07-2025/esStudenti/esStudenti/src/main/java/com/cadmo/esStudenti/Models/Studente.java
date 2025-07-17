@@ -4,15 +4,15 @@ public class Studente {
     private int id;
     private String nome;
     private String cognome;
-    private CorsoDiStudi corsoDiStudi;
+    private Corsi corsoDiStudi;
     private boolean fuoricorso = false;
     private double rettaAnnuale = 300.00;
 
-    public Studente(int id, String nome, String cognome, CorsoDiStudi corsoDiStudi ){
+    public Studente(int id, String nome, String cognome, Corsi corsi){
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
-        this.corsoDiStudi = corsoDiStudi;
+        this.corsoDiStudi = corsi;
     }
 
     public int getId() {
@@ -39,12 +39,12 @@ public class Studente {
         this.cognome = cognome;
     }
 
-    public CorsoDiStudi getCorsoDiStudi() {
+    public Corsi getCorsoDiStudi() {
         return corsoDiStudi;
     }
 
-    public void setCorsoDiStudi(CorsoDiStudi corsoDiStudi) {
-        this.corsoDiStudi = corsoDiStudi;
+    public void setCorsoDiStudi(Corsi corsi) {
+        this.corsoDiStudi = corsi;
     }
 
     public double getRettaAnnuale() {

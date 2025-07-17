@@ -1,6 +1,6 @@
 package com.cadmo.esStudenti.Models;
 
-public enum CorsoDiStudi {
+public enum Corsi {
     INFORMATICA,
     MATEMATICA,
     FISICA,

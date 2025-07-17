@@ -1,7 +1,6 @@
 package com.cadmo.esStudenti.Models;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +13,16 @@ public class StudenteDAO {
     int counter = 11;
 
     public StudenteDAO(){
-        studenti.add(new Studente(1, "Mario", "Rossi", CorsoDiStudi.INFORMATICA));
-        studenti.add(new Studente(2, "Lucia", "Bianchi", CorsoDiStudi.ECONOMIA));
-        studenti.add(new Studente(3, "Giovanni", "Verdi", CorsoDiStudi.INGEGNERIA_INFORMATICA));
-        studenti.add(new Studente(4, "Chiara", "Neri", CorsoDiStudi.CHIMICA));
-        studenti.add(new Studente(5, "Marco", "Russo", CorsoDiStudi.MEDICINA));
-        studenti.add(new Studente(6, "Sara", "Costa", CorsoDiStudi.INFORMATICA));
-        studenti.add(new Studente(7, "Paolo", "Ferrari", CorsoDiStudi.INGEGNERIA_MECCANICA));
-        studenti.add(new Studente(8, "Elena", "Gallo", CorsoDiStudi.FISICA));
-        studenti.add(new Studente(9, "Luca", "Fontana", CorsoDiStudi.MEDICINA));
-        studenti.add(new Studente(10, "Giulia", "Moretti", CorsoDiStudi.LETTERE));
+        studenti.add(new Studente(1, "Mario", "Rossi", Corsi.INFORMATICA));
+        studenti.add(new Studente(2, "Lucia", "Bianchi", Corsi.ECONOMIA));
+        studenti.add(new Studente(3, "Giovanni", "Verdi", Corsi.INGEGNERIA_INFORMATICA));
+        studenti.add(new Studente(4, "Chiara", "Neri", Corsi.CHIMICA));
+        studenti.add(new Studente(5, "Marco", "Russo", Corsi.MEDICINA));
+        studenti.add(new Studente(6, "Sara", "Costa", Corsi.INFORMATICA));
+        studenti.add(new Studente(7, "Paolo", "Ferrari", Corsi.INGEGNERIA_MECCANICA));
+        studenti.add(new Studente(8, "Elena", "Gallo", Corsi.FISICA));
+        studenti.add(new Studente(9, "Luca", "Fontana", Corsi.MEDICINA));
+        studenti.add(new Studente(10, "Giulia", "Moretti", Corsi.LETTERE));
     }
     // Aggiungi studente
     public Studente aggiungiStudente(Studente studente){
