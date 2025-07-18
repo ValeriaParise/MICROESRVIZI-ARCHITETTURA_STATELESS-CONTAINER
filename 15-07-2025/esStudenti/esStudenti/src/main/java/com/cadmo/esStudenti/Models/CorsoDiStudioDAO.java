@@ -55,13 +55,10 @@ public CorsoDiStudioDAO(List<CorsoDiStudio> corsiDiStudio){
         return Optional.empty();
     }
 
-    public boolean rimuoviCorsoDiStudi(int id){
-        Optional<CorsoDiStudio> corsoDaEliminare = cercaCorsoPerID(id);
-        if(!corsoDaEliminare.isEmpty()){
-            return corsiDiStudio.remove(corsoDaEliminare);
+    public boolean rimuoviCorsoDiStudi(int id) {
+        return corsiDiStudio.removeIf(c -> c.getIdCorso() == id);
     }
-        else return false;
-    }
+
 
     //Aggiungere rimuovi tutti
     public boolean rimuoviTuttiCorsi(){

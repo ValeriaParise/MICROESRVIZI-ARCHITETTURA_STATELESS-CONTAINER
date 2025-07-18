@@ -44,12 +44,17 @@ public class CorsoDiStudioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
     }
 
+
+    // NON FUNZIONA
     @PutMapping("/modifica-corso/{id}")
     public ResponseEntity<CorsoDiStudio> modificaCorso(@PathVariable int idCorso,
-                                                       @RequestBody CorsoDiStudio nuovoCorso){
+                                                       @RequestBody CorsoDiStudio nuovoCorso) {
         Optional<CorsoDiStudio> corsoModificato = service.modificaCorsoDiStudi(idCorso, nuovoCorso);
-        if(corsoModificato.isPresent()){return ResponseEntity.ok(corsoModificato.get());}
-        else{return ResponseEntity.status(HttpStatus.NOT_FOUND).build();}
+        if (corsoModificato.isPresent()) {
+            return ResponseEntity.ok(corsoModificato.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/rimuovi-corso/{id}")
