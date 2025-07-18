@@ -148,21 +148,22 @@ public class StudenteDAO {
 
     //10. Implementa il metodo che consenta di recuperare la media dei voti di uno studente.
 
-    public double mediaVotiPerStudente(int idStudente){
+    public Optional<Double> mediaVotiPerStudente(int idStudente){
         Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
+
         if(studenteSelezionato.isPresent()){
             double somma = 0;
             Studente s = studenteSelezionato.get();
             List<Esame> esami =listaEsamiSostenutiStudente(studenti.indexOf(s));
-            if(esami.size()>0) {
+            if(!esami.isEmpty()) {
                 for (Esame e : esami) {
                     somma += e.getVoto();
                 }
                 double media = somma/esami.size();
-                return Math.round(media*100)/100;
-            }
 
+                return Optional.of((double) (Math.round(media*100)/100));
+            }
         }
-        return 0;
+        return Optional.empty();
     }
 }

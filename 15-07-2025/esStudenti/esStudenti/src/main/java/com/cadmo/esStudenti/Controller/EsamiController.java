@@ -1,10 +1,13 @@
 package com.cadmo.esStudenti.Controller;
 
+import com.cadmo.esStudenti.Models.CorsoDiStudio;
 import com.cadmo.esStudenti.Models.Esame;
 import com.cadmo.esStudenti.Models.Studente;
 import com.cadmo.esStudenti.Services.EsamiService;
 import com.cadmo.esStudenti.Services.StudenteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,33 +24,52 @@ public class EsamiController {
         this.service = service;
     }
 
-    @PostMapping("/aggiungiEsame")
-    public Esame aggiungiEsame(@RequestBody Esame e){
-        return service.aggiungiEsame(e);
+    @GetMapping()
+    public ResponseEntity<List<Esame>> listaEsame(){
+        List<Esame> esami = service.cercaTuttiEsami();
+        if(esami.isEmpty()){
+            return ResponseEntity.noContent().build(); //204 lista vuota
+        }
+        return ResponseEntity.ok(esami);
     }
 
-    @GetMapping("/cercaEsame")
-    public Optional<Esame> cercaPerID(@RequestParam int id){
-        return service.cercaEsamePerID(id);
+    @GetMapping("/cerca-esame/{id}")
+    public ResponseEntity<Esame> cercaEsameID(@PathVariable int id){
+        Optional<Esame> trovato = service.cercaEsamePerID(id);
+        if(trovato.isPresent()){return ResponseEntity.ok(trovato.get());}
+        else{return ResponseEntity.status(HttpStatus.NOT_FOUND).build();}
     }
 
-    @GetMapping("/listaEsami")
-    public List<Esame> listaEsame(){
-        return service.cercaTuttiEsami();
+    @PostMapping("/aggiungi-esame")
+    public ResponseEntity<Esame> aggiungiEsame(@RequestBody Esame esame) {
+        Esame nuovo = service.aggiungiEsame(esame);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
     }
 
-    @PutMapping("/modificaEsame")
-    public Optional<Esame> modificaEsame(@RequestParam int id, @RequestBody Esame e){
-        return service.modificaEsame(id,e);
+    @PutMapping("/modifica-esame/{id}")
+    public ResponseEntity<Esame> modificaEsame(@PathVariable int id, @RequestBody Esame e){
+        Optional<Esame> modificato = service.modificaEsame(id,e);
+        if(modificato.isPresent()){return ResponseEntity.ok(modificato.get());}
+        else{return ResponseEntity.status(HttpStatus.NOT_FOUND).build();}
     }
 
-    @DeleteMapping("/rimuoviEsameID")
-    public boolean rimuoviEsame(@RequestParam int id){
-        return service.rimuoviEsame(id);
+    @DeleteMapping("/rimuovi-esame/{id}")
+    public ResponseEntity<String> rimuoviEsame(@PathVariable int id) {
+        boolean isEliminato = service.rimuoviEsame(id);
+        if (isEliminato) {
+            return ResponseEntity.ok("Esame rimosso.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Esame non trovato");
+        }
     }
 
-    @DeleteMapping("/rimuoviEsami")
-    public boolean rimuoviTuttiEsami(){
-        return service.eliminaTuttiEsami();
+    @DeleteMapping("/rimuovi-esami")
+    public ResponseEntity<String> rimuoviTuttiEsami() {
+        boolean rimossi = service.eliminaTuttiEsami();
+        if (rimossi) {
+            return ResponseEntity.ok("Esami rimossi");
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nessun Esame da eliminare");
+        }
     }
 }

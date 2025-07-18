@@ -15,14 +15,6 @@ public class CorsoDiStudioDAO {
     // ISTANZE IN COSTRUTTORE
 
 
-    public List<CorsoDiStudio> getCorsiDiStudio() {
-        return corsiDiStudio;
-    }
-
-    public Optional<CorsoDiStudio> cercaCorsoPerID(int id){
-        return corsiDiStudio.stream().filter(corso -> corso.getIdCorso() == id).findFirst();
-    }
-
     public CorsoDiStudio aggiungiCorsoDiStudio(CorsoDiStudio corso){
         if(!corsiDiStudio.contains(corso)){
             corso.setIdCorso(c_counter++);
@@ -30,6 +22,14 @@ public class CorsoDiStudioDAO {
             return corso;
         }
         return null;
+    }
+
+    public List<CorsoDiStudio> getCorsiDiStudio() {
+        return corsiDiStudio;
+    }
+
+    public Optional<CorsoDiStudio> cercaCorsoPerID(int id){
+        return corsiDiStudio.stream().filter(corso -> corso.getIdCorso() == id).findFirst();
     }
 
     public Optional<CorsoDiStudio> modificaCorsoDiStudi(int idcorso, CorsoDiStudio corso){
@@ -50,5 +50,15 @@ public class CorsoDiStudioDAO {
             return corsiDiStudio.remove(corsoDaEliminare);
     }
         else return false;
+    }
+
+    //Aggiungere rimuovi tutti
+    public boolean rimuoviTuttiCorsi(){
+        if (corsiDiStudio.isEmpty()){
+            return  false;
+        }
+        else{corsiDiStudio.clear();
+            return true;
+        }
     }
 }
