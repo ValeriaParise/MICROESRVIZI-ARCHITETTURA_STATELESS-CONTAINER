@@ -20,12 +20,12 @@ public class Esame {
     private int crediti;
     private boolean sostenuto;
 
+    public Esame(){}
     public Esame(int idEsame, String nome, LocalDate data, int voto, int crediti, boolean sostenuto) {
         this.idEsame = idEsame;
         this.nome = nome;
         this.data = data;
         this.voto = voto;
-        //this.voto = Math.round(voto*10)/10;//arrotonamento ad 1 cifra decimale;
         this.crediti = crediti;
         this.sostenuto = sostenuto;
     }

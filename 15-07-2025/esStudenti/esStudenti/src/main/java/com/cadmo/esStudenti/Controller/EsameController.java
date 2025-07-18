@@ -1,10 +1,7 @@
 package com.cadmo.esStudenti.Controller;
 
-import com.cadmo.esStudenti.Models.CorsoDiStudio;
 import com.cadmo.esStudenti.Models.Esame;
-import com.cadmo.esStudenti.Models.Studente;
 import com.cadmo.esStudenti.Services.EsamiService;
-import com.cadmo.esStudenti.Services.StudenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +12,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/esami")
-public class EsamiController {
+public class EsameController {
 
     @Autowired
     private final EsamiService service;
 
-    public EsamiController(EsamiService service) {
+    public EsameController(EsamiService service) {
         this.service = service;
     }
 
@@ -43,7 +40,8 @@ public class EsamiController {
     @PostMapping("/aggiungi-esame")
     public ResponseEntity<Esame> aggiungiEsame(@RequestBody Esame esame) {
         Esame nuovo = service.aggiungiEsame(esame);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuovo); // 201 Created
+
     }
 
     @PutMapping("/modifica-esame/{id}")

@@ -23,12 +23,15 @@ public class StudenteController {
         this.service = service;
     }
 
+    //ok
     @PostMapping("/aggiungi-studente")
     public ResponseEntity<Studente> aggiungiStudente(@RequestBody Studente s) {
         Studente nuovo = service.aggiungiStudente(s);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuovo); // 201 Created
     }
 
+
+    //ok
     @GetMapping()
     public ResponseEntity<List<Studente>> getStudenti(){
         List<Studente> studenti = service.cercaTutti();
@@ -38,9 +41,9 @@ public class StudenteController {
         return ResponseEntity.ok(studenti);
     }
 
-    /// cerca?id=3
+    /// ok
     @GetMapping("/cerca-studente/{id}")
-    public ResponseEntity<Studente> cercaCorsoPerID(@PathVariable int id){
+    public ResponseEntity<Studente> cercaStudentePerID(@PathVariable int id){
         Optional<Studente> trovato = service.cercaStudentePerID(id);
         if(trovato.isPresent()){return ResponseEntity.ok(trovato.get());}
         else{return ResponseEntity.status(HttpStatus.NOT_FOUND).build();}
@@ -48,6 +51,8 @@ public class StudenteController {
 
     //  /studenti/{id}/calcolaRetta  --> @path Variable
     // /studenti/calcolaRetta?id={id} -->@Request param
+
+    //ok
     @GetMapping("/retta/{id}")
     public ResponseEntity<Double> calcolaRetta(@PathVariable int id) {
         Optional<Studente> trovato = service.cercaStudentePerID(id);
@@ -60,8 +65,7 @@ public class StudenteController {
         }
     }
 
-
-
+    //ok
     @GetMapping("/lista-esami/{id}")
     public ResponseEntity<List<Esame>> esamiStudente(@PathVariable int id) {
         List<Esame> esami = service.listaEsamiPerStudente(id);
@@ -91,6 +95,8 @@ public class StudenteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+
     @GetMapping("/esami-da-sostenere/{id}")
     public ResponseEntity<List<Esame>> esamiDaSostenre(@PathVariable int id) {
         List<Esame> esami = service.listaEsamiDaSostenereStudente(id);
@@ -149,7 +155,7 @@ public class StudenteController {
     public ResponseEntity<String> rimuoviTuttiStudenti() {
         boolean isRimossi = service.eliminaTuttiStudenti();
         if (isRimossi) {
-            return ResponseEntity.ok("Studente rimosso.");
+            return ResponseEntity.ok("Studenti rimossi");
         } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nessuno studente da eliminare");
         }

@@ -14,6 +14,11 @@ public class Studente {
     // Collego lo studente con Esami
     private List<Esame> esamiStudente = new ArrayList<>();
 
+    public Studente() {
+        // Costruttore vuoto necessario per Jackson (deserializzazione JSON)
+    }
+
+
     public Studente(int id, String nome, String cognome, String corsoDiStudio){
         this.id = id;
         this.nome = nome;
