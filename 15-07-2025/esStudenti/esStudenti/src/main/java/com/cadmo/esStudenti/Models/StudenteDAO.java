@@ -2,7 +2,9 @@ package com.cadmo.esStudenti.Models;
 
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,12 +12,12 @@ import java.util.Optional;
 public class StudenteDAO {
 
     public List<Studente> studenti = new ArrayList<>();
-    int counter = 11;
+    int counter = 16;
 
     public StudenteDAO(List<Studente> studenti){
-        studenti.add(new Studente(1, "Mario", "Rossi", "informatica"));
-        studenti.add(new Studente(2, "Lucia", "Bianchi", "economia"));
-        studenti.add(new Studente(3, "Giovanni", "Verdi", "INGEGNERIA_INFORMATICA"));
+        studenti.add(new Studente(1, "Mario", "Rossi", "INFORMATICA"));
+        studenti.add(new Studente(2, "Lucia", "Bianchi", "ECONOMIA"));
+        studenti.add(new Studente(3, "Giovanni", "Verdi", "INGEGNERIA_EDILE"));
         studenti.add(new Studente(4, "Chiara", "Neri", "CHIMICA"));
         studenti.add(new Studente(5, "Marco", "Russo", "MEDICINA"));
         studenti.add(new Studente(6, "Sara", "Costa", "INFORMATICA"));
@@ -23,6 +25,55 @@ public class StudenteDAO {
         studenti.add(new Studente(8, "Elena", "Gallo", "FISICA"));
         studenti.add(new Studente(9, "Luca", "Fontana", "MEDICINA"));
         studenti.add(new Studente(10, "Giulia", "Moretti", "LETTERE"));
+
+
+        // Studente 11
+        studenti.add(new Studente(
+                11, "Luca", "Rossi", "Ingegneria Informatica",
+                Arrays.asList(
+                        new Esame(1, "Algoritmi", LocalDate.of(2024, 3, 15), 28, 9, true),
+                        new Esame(2, "Reti", LocalDate.of(2024, 5, 10), 30, 6, true),
+                        new Esame(3, "Sistemi Operativi", LocalDate.of(2024, 6, 5), 27, 6, false)
+                )
+        ));
+
+        // Studente 12
+        studenti.add(new Studente(
+                12, "Sara", "Bianchi", "Fisica",
+                Arrays.asList(
+                        new Esame(4, "Meccanica", LocalDate.of(2024, 2, 20), 29, 8, true),
+                        new Esame(5, "Ottica", LocalDate.of(2024, 4, 10), 26, 6, true)
+                )
+        ));
+
+        // Studente 13
+        studenti.add(new Studente(
+                13, "Giulia", "Verdi", "Matematica",
+                Arrays.asList(
+                        new Esame(6, "Analisi 1", LocalDate.of(2023, 11, 10), 30, 9, true),
+                        new Esame(7, "Geometria", LocalDate.of(2024, 1, 15), 25, 6, true),
+                        new Esame(8, "Logica", LocalDate.of(2024, 3, 20), 28, 6, true)
+                )
+        ));
+
+        // Studente 14
+        studenti.add(new Studente(
+                14, "Marco", "Neri", "Chimica",
+                Arrays.asList(
+                        new Esame(9, "Chimica Organica", LocalDate.of(2024, 4, 5), 22, 9, true),
+                        new Esame(10, "Analisi Chimica", LocalDate.of(2024, 5, 10), 24, 6, false)
+                )
+        ));
+
+        // Studente 15
+        studenti.add(new Studente(
+                15, "Elena", "Russo", "Biologia",
+                Arrays.asList(
+                        new Esame(11, "Genetica", LocalDate.of(2023, 12, 2), 30, 6, true),
+                        new Esame(12, "Biologia Molecolare", LocalDate.of(2024, 2, 8), 28, 9, true)
+                )
+        ));
+
 
         this.studenti = studenti;
     }

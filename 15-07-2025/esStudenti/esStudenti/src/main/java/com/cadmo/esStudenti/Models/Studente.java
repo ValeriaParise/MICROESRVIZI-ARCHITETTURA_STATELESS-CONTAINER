@@ -20,6 +20,13 @@ public class Studente {
         this.cognome = cognome;
         this.corsoDiStudio = corsoDiStudio;
     }
+    public Studente(int id, String nome, String cognome, String corsoDiStudio,List<Esame> esamiStudente){
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.corsoDiStudio = corsoDiStudio;
+        this.esamiStudente = esamiStudente;
+    }
 
     public int getId() {
         return id;

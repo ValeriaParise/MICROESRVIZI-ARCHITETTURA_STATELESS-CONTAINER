@@ -9,11 +9,22 @@ import java.util.Optional;
 
 @Component
 public class CorsoDiStudioDAO {
-    private int c_counter = 0;
+    private int c_counter = 7;
     private List<CorsoDiStudio> corsiDiStudio = new ArrayList<>();
 
     // ISTANZE IN COSTRUTTORE
+public CorsoDiStudioDAO(List<CorsoDiStudio> corsiDiStudio){
 
+    corsiDiStudio.add(new CorsoDiStudio(1, "Ingegneria Informatica", 3, new ArrayList<>()));
+    corsiDiStudio.add(new CorsoDiStudio(2, "Ingegneria Elettronica", 3, new ArrayList<>()));
+    corsiDiStudio.add(new CorsoDiStudio(3, "Fisica", 3, new ArrayList<>()));
+    corsiDiStudio.add(new CorsoDiStudio(4, "Matematica", 3, new ArrayList<>()));
+    corsiDiStudio.add(new CorsoDiStudio(5, "Chimica", 3, new ArrayList<>()));
+    corsiDiStudio.add(new CorsoDiStudio(6, "Biologia", 3, new ArrayList<>()));
+
+    this.corsiDiStudio = corsiDiStudio;
+
+}
 
     public CorsoDiStudio aggiungiCorsoDiStudio(CorsoDiStudio corso){
         if(!corsiDiStudio.contains(corso)){
