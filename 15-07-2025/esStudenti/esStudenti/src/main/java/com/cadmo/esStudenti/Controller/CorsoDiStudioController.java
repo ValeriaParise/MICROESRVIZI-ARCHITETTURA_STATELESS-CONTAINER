@@ -44,12 +44,11 @@ public class CorsoDiStudioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
     }
 
-
     // NON FUNZIONA
     @PutMapping("/modifica-corso/{id}")
-    public ResponseEntity<CorsoDiStudio> modificaCorso(@PathVariable int idCorso,
+    public ResponseEntity<CorsoDiStudio> modificaCorso(@PathVariable int id,
                                                        @RequestBody CorsoDiStudio nuovoCorso) {
-        Optional<CorsoDiStudio> corsoModificato = service.modificaCorsoDiStudi(idCorso, nuovoCorso);
+        Optional<CorsoDiStudio> corsoModificato = service.modificaCorsoDiStudi(id, nuovoCorso);
         if (corsoModificato.isPresent()) {
             return ResponseEntity.ok(corsoModificato.get());
         } else {

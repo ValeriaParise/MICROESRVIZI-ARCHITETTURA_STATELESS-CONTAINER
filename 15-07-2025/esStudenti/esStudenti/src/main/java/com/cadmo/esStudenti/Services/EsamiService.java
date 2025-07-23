@@ -1,7 +1,7 @@
 package com.cadmo.esStudenti.Services;
 
 import com.cadmo.esStudenti.Models.Esame;
-import com.cadmo.esStudenti.Models.EsameDAO;
+import com.cadmo.esStudenti.DAO.EsameDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

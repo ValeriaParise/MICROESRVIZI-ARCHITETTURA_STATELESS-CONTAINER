@@ -1,5 +1,9 @@
-package com.cadmo.esStudenti.Models;
+package com.cadmo.esStudenti.DAO;
 
+import com.cadmo.esStudenti.Models.Esame;
+import com.cadmo.esStudenti.Models.Studente;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -10,6 +14,8 @@ import java.util.Optional;
 
 @Component
 public class StudenteDAO {
+
+    //private static final Logger log = LoggerFactory.getLogger(StudenteDAO.class);
 
     public List<Studente> studenti = new ArrayList<>();
     int counter = 16;
@@ -77,6 +83,7 @@ public class StudenteDAO {
 
         this.studenti = studenti;
     }
+
     // Aggiungi studente
     public Studente aggiungiStudente(Studente studente){
         if(!studenti.contains(studente)){
@@ -109,6 +116,7 @@ public class StudenteDAO {
                 originale.setFuoricorso(s.isFuoricorso());
                 originale.setCorsoDiStudio(s.getCorsoDiStudio());
                 originale.setRettaAnnuale(s.getRettaAnnuale());
+                originale.setEsamiStudente(s.getEsamiStudente());
                 return Optional.of(originale);
         }
         return Optional.empty();
@@ -122,7 +130,7 @@ public class StudenteDAO {
         return false;
     }
 
-    //elimina tutti
+    //Elimina tutti
     public boolean eliminaStudenti(){
         if (studenti.isEmpty()){return  false;}
         else{studenti.clear();
@@ -164,7 +172,6 @@ public class StudenteDAO {
 
     public List<Esame> listaEsamiPerStudente (int idStudente){
         Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
-
         if(studenteSelezionato.isPresent()){
             Studente s = studenteSelezionato.get();
             return s.getEsamiStudente();

@@ -1,6 +1,7 @@
-package com.cadmo.esStudenti.Models;
+package com.cadmo.esStudenti.DAO;
 
 
+import com.cadmo.esStudenti.Models.CorsoDiStudio;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public CorsoDiStudioDAO(List<CorsoDiStudio> corsiDiStudio){
     corsiDiStudio.add(new CorsoDiStudio(6, "Biologia", 3, new ArrayList<>()));
 
     this.corsiDiStudio = corsiDiStudio;
-
 }
 
     public CorsoDiStudio aggiungiCorsoDiStudio(CorsoDiStudio corso){
@@ -47,6 +47,7 @@ public CorsoDiStudioDAO(List<CorsoDiStudio> corsiDiStudio){
         Optional<CorsoDiStudio> corsoEsistente = cercaCorsoPerID(idcorso);
         if(corsoEsistente.isPresent()){
             CorsoDiStudio originale = corsoEsistente.get();
+            //originale.setIdCorso(corso.getIdCorso());
             originale.setNomeCorso(corso.getNomeCorso());
             originale.setDurata(corso.getDurata());
             originale.setEsamiCorso(corso.getEsamiCorso());
@@ -58,7 +59,6 @@ public CorsoDiStudioDAO(List<CorsoDiStudio> corsiDiStudio){
     public boolean rimuoviCorsoDiStudi(int id) {
         return corsiDiStudio.removeIf(c -> c.getIdCorso() == id);
     }
-
 
     //Aggiungere rimuovi tutti
     public boolean rimuoviTuttiCorsi(){
