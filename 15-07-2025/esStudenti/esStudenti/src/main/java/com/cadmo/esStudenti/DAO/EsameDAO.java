@@ -1,5 +1,6 @@
-package com.cadmo.esStudenti.Models;
+package com.cadmo.esStudenti.DAO;
 
+import com.cadmo.esStudenti.Models.Esame;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

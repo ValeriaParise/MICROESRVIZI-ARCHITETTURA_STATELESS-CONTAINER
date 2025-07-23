@@ -1,5 +1,7 @@
-package com.cadmo.esStudenti.Models;
+package com.cadmo.esStudenti.DAO;
 
+import com.cadmo.esStudenti.Models.Esame;
+import com.cadmo.esStudenti.Models.Studente;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,9 +17,9 @@ public class StudenteDAO {
     int counter = 16;
 
     public StudenteDAO(List<Studente> studenti){
-        studenti.add(new Studente(1, "Mario", "Rossi", "INFORMATICA"));
-        studenti.add(new Studente(2, "Lucia", "Bianchi", "ECONOMIA"));
-        studenti.add(new Studente(3, "Giovanni", "Verdi", "INGEGNERIA_EDILE"));
+        studenti.add(new Studente(1, "Mario", "Rossi", true,"INFORMATICA"));
+        studenti.add(new Studente(2, "Lucia", "Bianchi",true, "ECONOMIA"));
+        studenti.add(new Studente(3, "Giovanni", "Verdi",true, "INGEGNERIA_EDILE"));
         studenti.add(new Studente(4, "Chiara", "Neri", "CHIMICA"));
         studenti.add(new Studente(5, "Marco", "Russo", "MEDICINA"));
         studenti.add(new Studente(6, "Sara", "Costa", "INFORMATICA"));
@@ -124,12 +126,14 @@ public class StudenteDAO {
     }
 
     //Calcola Retta
-    public double aggiornaRetta(int id){
-        Studente s = studenti.get(id);
-            if(s.isFuoricorso()){
-                s.setRettaAnnuale(s.getRettaAnnuale()*1.25);
-            }
-        return  s.getRettaAnnuale();
+    public double incrementaRetta(int id){
+        double retta = studenti.get(id).getRettaAnnuale();
+        /*Studente s = studenti.get(id);
+        if(s.isFuoricorso()){
+            retta = retta * 1.25;
+        }
+        return  retta;*/
+        return  retta *=1.25;
     }
 
     //Implementa il metodo che consenta di aggiornare lo stato di un esame per uno studente.

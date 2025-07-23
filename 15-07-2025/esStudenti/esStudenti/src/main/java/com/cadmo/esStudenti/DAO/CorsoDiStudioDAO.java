@@ -1,6 +1,7 @@
-package com.cadmo.esStudenti.Models;
+package com.cadmo.esStudenti.DAO;
 
 
+import com.cadmo.esStudenti.Models.CorsoDiStudio;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

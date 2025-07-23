@@ -1,6 +1,8 @@
 package com.cadmo.esStudenti.Services;
 
+import com.cadmo.esStudenti.DAO.StudenteDAO;
 import com.cadmo.esStudenti.Models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -9,6 +11,8 @@ import java.util.Optional;
 
 @Service
 public class StudenteService {
+
+    @Autowired
     private final StudenteDAO studenteDAO;
 
     public StudenteService(StudenteDAO studenteDAO){
@@ -52,7 +56,7 @@ public class StudenteService {
         if(studenteDAO.cercaPerId(id).isPresent()){
             Studente s = studenteDAO.cercaPerId(id).get();
             if(s.isFuoricorso()){
-                return studenteDAO.aggiornaRetta(id);
+                return studenteDAO.incrementaRetta(id);
             }
             else return s.getRettaAnnuale();
     }
