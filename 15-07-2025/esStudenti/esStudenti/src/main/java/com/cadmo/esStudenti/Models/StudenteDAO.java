@@ -82,7 +82,8 @@ public class StudenteDAO {
         if(!studenti.contains(studente)){
             studenti.add(studente);
             studente.setId(counter++);
-        return studente;}
+            return studente;
+        }
         else System.out.println("Studente già presente nella lista.");
         return null;
     }
@@ -98,52 +99,46 @@ public class StudenteDAO {
         return studenti;
     }
 
-
     //Modifica uno
     public Optional<Studente> modificaStudente(int idStud, Studente s){
-        Optional<Studente> studenteEsistente = cercaPerId(idStud);
-        if(studenteEsistente.isPresent()){
-            Studente originale = studenteEsistente.get();
-                originale.setCognome(s.getCognome());
-                originale.setNome(s.getNome());
-                originale.setFuoricorso(s.isFuoricorso());
-                originale.setCorsoDiStudio(s.getCorsoDiStudio());
-                originale.setRettaAnnuale(s.getRettaAnnuale());
-                return Optional.of(originale);
-        }
-        return Optional.empty();
+        Studente originale = cercaPerId(idStud).get();
+        originale.setCognome(s.getCognome());
+        originale.setNome(s.getNome());
+        originale.setFuoricorso(s.isFuoricorso());
+        originale.setCorsoDiStudio(s.getCorsoDiStudio());
+        originale.setRettaAnnuale(s.getRettaAnnuale());
+
+        return Optional.of(originale);
     }
 
     //Elimina per id
-    public boolean rimuoviStudenteId(int id){
-        for(Studente s : studenti){
-            if (s.getId() == id){ return studenti.remove(s);}
-        }
-        return false;
+    public boolean rimuoviStudenteId(int id) {
+        return studenti.remove(studenti.get(id));
     }
 
     //elimina tutti
     public boolean eliminaStudenti(){
         if (studenti.isEmpty()){return  false;}
-        else{studenti.clear();
-        return true;}
+        studenti.clear();
+        return true;
     }
 
     //Calcola Retta
-    public double importoRetta(int id){
+    public double aggiornaRetta(int id){
         Studente s = studenti.get(id);
-        if(s!= null){
             if(s.isFuoricorso()){
                 s.setRettaAnnuale(s.getRettaAnnuale()*1.25);
             }
-        }
         return  s.getRettaAnnuale();
     }
 
     //Implementa il metodo che consenta di aggiornare lo stato di un esame per uno studente.
 
-    public boolean aggiornaStatoEsame(int idStudente, int idEsame, boolean newStato){
-        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
+    public void aggiornaStatoEsame(int idStudente, int idEsame, boolean newStato){
+        studenti.get(idStudente).getEsamiStudente().stream().filter(esame -> esame.getIdEsame() == idEsame).findFirst().get()
+                .setSostenuto(newStato);
+
+       /* Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
 
         if(studenteSelezionato.isPresent()){
             Studente s = studenteSelezionato.get();
@@ -156,66 +151,46 @@ public class StudenteDAO {
                 return true;
             }
         }
-        return false;
+        return false;*/
     }
 
     //7. Implementa il metodo per recuperare la lista completa degli esami associati ad uno
     //studente.
 
     public List<Esame> listaEsamiPerStudente (int idStudente){
-        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
+        Studente s = studenti.get(idStudente);
+        return s.getEsamiStudente();
 
-        if(studenteSelezionato.isPresent()){
-            Studente s = studenteSelezionato.get();
-            return s.getEsamiStudente();
-        }
-        return null;
     }
 
     //8. Implementa il metodo per recuperare la lista degli esami sostenuti da uno studente.
 
     public List<Esame> listaEsamiSostenutiStudente(int idStudente){
-        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
-
-        if(studenteSelezionato.isPresent()){
-            Studente s = studenteSelezionato.get();
-            return (s.getEsamiStudente().stream().filter(esame -> esame.isSostenuto())).toList();
-        }
-        return null;
+        Studente s = studenti.get(idStudente);
+        return (s.getEsamiStudente().stream().filter(esame -> esame.isSostenuto())).toList();
     }
 
 //9. Implementa il metodo che consenta di recuperare la lista degli esami che l’utente
    // deve sostenere.
 
     public List<Esame> listaEsamiDaSostenereStudente(int idStudente){
-        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
-
-        if(studenteSelezionato.isPresent()){
-            Studente s = studenteSelezionato.get();
-            return (s.getEsamiStudente().stream().filter(esame -> !esame.isSostenuto())).toList();
-        }
-        return null;
+        Studente s = studenti.get(idStudente);
+        return (s.getEsamiStudente().stream().filter(esame -> !esame.isSostenuto())).toList();
     }
 
     //10. Implementa il metodo che consenta di recuperare la media dei voti di uno studente.
 
-    public Double mediaVotiPerStudente(int idStudente){
-        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
-
-        if(studenteSelezionato.isPresent()){
-            double somma = 0;
-            Studente s = studenteSelezionato.get();
-            List<Esame> esami =listaEsamiSostenutiStudente(studenti.indexOf(s));
-            if(!esami.isEmpty()) {
-                for (Esame e : esami) {
-                    somma += e.getVoto();
-                }
-                double media = (somma/esami.size());
-                double mediaRound = Math.round(media*100)/100;
-                return mediaRound;
-               // return Optional.of((double) (mediaRound)).get();
-            }
+    public Double mediaVotiPerStudente(int idStudente) {
+        double somma = 0;
+        Studente s = studenti.get(idStudente);
+        List<Esame> esami = listaEsamiSostenutiStudente(idStudente);
+        for (Esame e : esami) {
+            somma += e.getVoto();
         }
-        return 0.0;
+        double media = (somma / esami.size());
+        double mediaRound = Math.round(media * 100) / 100;
+        return mediaRound;
+    }   // return Optional.of((double) (mediaRound)).get();
+
     }
-}
+
