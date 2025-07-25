@@ -56,7 +56,7 @@ public class StudenteService {
         if(studenteDAO.cercaPerId(id).isPresent()){
             Studente s = studenteDAO.cercaPerId(id).get();
             if(s.isFuoricorso()){
-                return studenteDAO.incrementaRetta(id);
+                return studenteDAO.calcolaRetta(id);
             }
             else return s.getRettaAnnuale();
     }
@@ -107,8 +107,4 @@ public class StudenteService {
         }
         return 0;
     }
-
-
-
-
 }
