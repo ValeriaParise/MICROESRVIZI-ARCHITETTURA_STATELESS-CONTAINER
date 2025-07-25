@@ -18,7 +18,13 @@ public class Studente {
         // Costruttore vuoto necessario per Jackson (deserializzazione JSON)
     }
 
-
+    public Studente(int id, String nome, String cognome,boolean fc, String corsoDiStudio){
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.corsoDiStudio = corsoDiStudio;
+        this.fuoricorso=fc;
+    }
     public Studente(int id, String nome, String cognome, String corsoDiStudio){
         this.id = id;
         this.nome = nome;
