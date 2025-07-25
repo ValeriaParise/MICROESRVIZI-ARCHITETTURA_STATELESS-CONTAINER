@@ -16,7 +16,10 @@ public class StudenteDAO {
     public List<Studente> studenti = new ArrayList<>();
     int counter = 16;
 
-    public StudenteDAO(List<Studente> studenti){
+    //public StudenteDAO(){}
+
+    public StudenteDAO(){
+        studenti.add(new Studente(0, "Emma", "Verdi", "FISICA"));
         studenti.add(new Studente(1, "Mario", "Rossi", true,"INFORMATICA"));
         studenti.add(new Studente(2, "Lucia", "Bianchi",true, "ECONOMIA"));
         studenti.add(new Studente(3, "Giovanni", "Verdi",true, "INGEGNERIA_EDILE"));
@@ -27,7 +30,6 @@ public class StudenteDAO {
         studenti.add(new Studente(8, "Elena", "Gallo", "FISICA"));
         studenti.add(new Studente(9, "Luca", "Fontana", "MEDICINA"));
         studenti.add(new Studente(10, "Giulia", "Moretti", "LETTERE"));
-
 
         // Studente 11
         studenti.add(new Studente(
@@ -79,6 +81,7 @@ public class StudenteDAO {
 
         this.studenti = studenti;
     }
+
     // Aggiungi studente
     public Studente aggiungiStudente(Studente studente){
         if(!studenti.contains(studente)){
