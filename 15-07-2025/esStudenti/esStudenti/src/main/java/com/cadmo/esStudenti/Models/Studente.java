@@ -2,6 +2,7 @@ package com.cadmo.esStudenti.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class Studente {
     private int id;

@@ -126,9 +126,7 @@ public class StudenteDAO {
     //Calcola Retta
     public double calcolaRetta(int id){
         Studente s = cercaPerId(id).get();
-        if(s.isFuoricorso()){
-                s.setRettaAnnuale(s.getRettaAnnuale()*1.25);
-            }
+        s.setRettaAnnuale(s.getRettaAnnuale()*1.25);
         return  s.getRettaAnnuale();
     }
 
