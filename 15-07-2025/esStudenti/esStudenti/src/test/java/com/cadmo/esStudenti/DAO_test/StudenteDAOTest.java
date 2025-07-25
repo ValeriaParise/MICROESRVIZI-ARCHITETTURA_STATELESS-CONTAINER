@@ -1,4 +1,4 @@
-package DAO;
+package com.cadmo.esStudenti.DAO_test;
 
 import com.cadmo.esStudenti.DAO.StudenteDAO;
 import com.cadmo.esStudenti.Models.Studente;
@@ -30,13 +30,24 @@ public class StudenteDAOTest {
     //TEST NON SUPERATO -  ATTENZIONE A COME VENGONO CONFRONTATI I DUE OGGETTI!!!
     @Test
     void testCercaPerID(){
-        Studente atteso = new Studente(4, "Chiara", "Neri", "CHIMICA");
+        int id = 4; //         studenti.add(new Studente(4, "Chiara", "Neri", "CHIMICA"));
+
         Optional<Studente> studente_cercato = studenteDAO.cercaPerId(4);
-        Studente res = studente_cercato.get();
-        assertEquals(atteso , res);
-        assertTrue(studenteDAO.studenti.contains(atteso));
+        assertTrue(studente_cercato.isPresent(), "Verifico che ci sia uno studente");
+
+        Studente cercato = studente_cercato.get();
+        assertEquals(id ,cercato.getId(), "Verifico che l id sia uguale");
+        assertEquals("Chiara", cercato.getNome());
+        assertEquals("Neri", cercato.getCognome());
+
     }
 
+    @Test
+    void testCercaPerIDNonEsistente(){
+        int id = 500;
+        Optional<Studente> studente = studenteDAO.cercaPerId(id);
+        assertTrue(studente.isEmpty(), "Nessuno studente con quell'id");
+    }
 
 
 }
