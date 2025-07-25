@@ -17,7 +17,7 @@ public class EsameDAO {
 
 
     // AGGIUNGERLI QUI GLI ESMAI
-    public EsameDAO(List<Esame> listaEsami) {
+    public EsameDAO() {
 // INFORMATICA
     listaEsami.add(new Esame(1, "Analisi 1", LocalDate.of(2024, 3, 15), 28, 9, true));
     listaEsami.add(new Esame(2, "Programmazione", LocalDate.of(2024, 4, 10), 30, 6, true));

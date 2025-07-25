@@ -14,7 +14,7 @@ public class CorsoDiStudioDAO {
     private List<CorsoDiStudio> corsiDiStudio = new ArrayList<>();
 
     // ISTANZE IN COSTRUTTORE
-public CorsoDiStudioDAO(List<CorsoDiStudio> corsiDiStudio){
+public CorsoDiStudioDAO(){
 
     corsiDiStudio.add(new CorsoDiStudio(1, "Ingegneria Informatica", 3, new ArrayList<>()));
     corsiDiStudio.add(new CorsoDiStudio(2, "Ingegneria Elettronica", 3, new ArrayList<>()));
