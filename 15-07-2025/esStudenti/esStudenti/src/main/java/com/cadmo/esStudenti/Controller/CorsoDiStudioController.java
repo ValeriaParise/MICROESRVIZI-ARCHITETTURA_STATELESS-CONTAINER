@@ -44,7 +44,6 @@ public class CorsoDiStudioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
     }
 
-
     // NON FUNZIONA
     @PutMapping("/modifica-corso/{id}")
     public ResponseEntity<CorsoDiStudio> modificaCorso(@PathVariable int id,

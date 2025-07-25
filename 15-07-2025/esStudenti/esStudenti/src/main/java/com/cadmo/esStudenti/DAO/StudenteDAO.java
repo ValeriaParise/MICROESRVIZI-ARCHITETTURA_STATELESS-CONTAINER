@@ -17,9 +17,9 @@ public class StudenteDAO {
     int counter = 16;
 
     public StudenteDAO(List<Studente> studenti){
-        studenti.add(new Studente(1, "Mario", "Rossi", true,"INFORMATICA"));
-        studenti.add(new Studente(2, "Lucia", "Bianchi",true, "ECONOMIA"));
-        studenti.add(new Studente(3, "Giovanni", "Verdi",true, "INGEGNERIA_EDILE"));
+        studenti.add(new Studente(1, "Mario", "Rossi", "INFORMATICA"));
+        studenti.add(new Studente(2, "Lucia", "Bianchi", "ECONOMIA"));
+        studenti.add(new Studente(3, "Giovanni", "Verdi", "INGEGNERIA_EDILE"));
         studenti.add(new Studente(4, "Chiara", "Neri", "CHIMICA"));
         studenti.add(new Studente(5, "Marco", "Russo", "MEDICINA"));
         studenti.add(new Studente(6, "Sara", "Costa", "INFORMATICA"));
@@ -84,8 +84,7 @@ public class StudenteDAO {
         if(!studenti.contains(studente)){
             studenti.add(studente);
             studente.setId(counter++);
-            return studente;
-        }
+        return studente;}
         else System.out.println("Studente già presente nella lista.");
         return null;
     }
@@ -101,48 +100,52 @@ public class StudenteDAO {
         return studenti;
     }
 
+
     //Modifica uno
     public Optional<Studente> modificaStudente(int idStud, Studente s){
-        Studente originale = cercaPerId(idStud).get();
-        originale.setCognome(s.getCognome());
-        originale.setNome(s.getNome());
-        originale.setFuoricorso(s.isFuoricorso());
-        originale.setCorsoDiStudio(s.getCorsoDiStudio());
-        originale.setRettaAnnuale(s.getRettaAnnuale());
-
-        return Optional.of(originale);
+        Optional<Studente> studenteEsistente = cercaPerId(idStud);
+        if(studenteEsistente.isPresent()){
+            Studente originale = studenteEsistente.get();
+                originale.setCognome(s.getCognome());
+                originale.setNome(s.getNome());
+                originale.setFuoricorso(s.isFuoricorso());
+                originale.setCorsoDiStudio(s.getCorsoDiStudio());
+                originale.setRettaAnnuale(s.getRettaAnnuale());
+                return Optional.of(originale);
+        }
+        return Optional.empty();
     }
 
     //Elimina per id
-    public boolean rimuoviStudenteId(int id) {
-        return studenti.remove(studenti.get(id));
+    public boolean rimuoviStudenteId(int id){
+        for(Studente s : studenti){
+            if (s.getId() == id){ return studenti.remove(s);}
+        }
+        return false;
     }
 
     //elimina tutti
     public boolean eliminaStudenti(){
         if (studenti.isEmpty()){return  false;}
-        studenti.clear();
-        return true;
+        else{studenti.clear();
+        return true;}
     }
 
     //Calcola Retta
-    public double incrementaRetta(int id){
-        double retta = studenti.get(id).getRettaAnnuale();
-        /*Studente s = studenti.get(id);
-        if(s.isFuoricorso()){
-            retta = retta * 1.25;
+    public double importoRetta(int id){
+        Studente s = studenti.get(id);
+        if(s!= null){
+            if(s.isFuoricorso()){
+                s.setRettaAnnuale(s.getRettaAnnuale()*1.25);
+            }
         }
-        return  retta;*/
-        return  retta *=1.25;
+        return  s.getRettaAnnuale();
     }
 
     //Implementa il metodo che consenta di aggiornare lo stato di un esame per uno studente.
 
-    public void aggiornaStatoEsame(int idStudente, int idEsame, boolean newStato){
-        studenti.get(idStudente).getEsamiStudente().stream().filter(esame -> esame.getIdEsame() == idEsame).findFirst().get()
-                .setSostenuto(newStato);
-
-       /* Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
+    public boolean aggiornaStatoEsame(int idStudente, int idEsame, boolean newStato){
+        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
 
         if(studenteSelezionato.isPresent()){
             Studente s = studenteSelezionato.get();
@@ -155,46 +158,66 @@ public class StudenteDAO {
                 return true;
             }
         }
-        return false;*/
+        return false;
     }
 
     //7. Implementa il metodo per recuperare la lista completa degli esami associati ad uno
     //studente.
 
     public List<Esame> listaEsamiPerStudente (int idStudente){
-        Studente s = studenti.get(idStudente);
-        return s.getEsamiStudente();
+        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
 
+        if(studenteSelezionato.isPresent()){
+            Studente s = studenteSelezionato.get();
+            return s.getEsamiStudente();
+        }
+        return null;
     }
 
     //8. Implementa il metodo per recuperare la lista degli esami sostenuti da uno studente.
 
     public List<Esame> listaEsamiSostenutiStudente(int idStudente){
-        Studente s = studenti.get(idStudente);
-        return (s.getEsamiStudente().stream().filter(esame -> esame.isSostenuto())).toList();
+        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
+
+        if(studenteSelezionato.isPresent()){
+            Studente s = studenteSelezionato.get();
+            return (s.getEsamiStudente().stream().filter(esame -> esame.isSostenuto())).toList();
+        }
+        return null;
     }
 
 //9. Implementa il metodo che consenta di recuperare la lista degli esami che l’utente
    // deve sostenere.
 
     public List<Esame> listaEsamiDaSostenereStudente(int idStudente){
-        Studente s = studenti.get(idStudente);
-        return (s.getEsamiStudente().stream().filter(esame -> !esame.isSostenuto())).toList();
+        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
+
+        if(studenteSelezionato.isPresent()){
+            Studente s = studenteSelezionato.get();
+            return (s.getEsamiStudente().stream().filter(esame -> !esame.isSostenuto())).toList();
+        }
+        return null;
     }
 
     //10. Implementa il metodo che consenta di recuperare la media dei voti di uno studente.
 
-    public Double mediaVotiPerStudente(int idStudente) {
-        double somma = 0;
-        Studente s = studenti.get(idStudente);
-        List<Esame> esami = listaEsamiSostenutiStudente(idStudente);
-        for (Esame e : esami) {
-            somma += e.getVoto();
+    public Double mediaVotiPerStudente(int idStudente){
+        Optional<Studente> studenteSelezionato = cercaPerId(idStudente);
+
+        if(studenteSelezionato.isPresent()){
+            double somma = 0;
+            Studente s = studenteSelezionato.get();
+            List<Esame> esami =listaEsamiSostenutiStudente(studenti.indexOf(s));
+            if(!esami.isEmpty()) {
+                for (Esame e : esami) {
+                    somma += e.getVoto();
+                }
+                double media = (somma/esami.size());
+                double mediaRound = Math.round(media*100)/100;
+                return mediaRound;
+               // return Optional.of((double) (mediaRound)).get();
+            }
         }
-        double media = (somma / esami.size());
-        double mediaRound = Math.round(media * 100) / 100;
-        return mediaRound;
-    }   // return Optional.of((double) (mediaRound)).get();
-
+        return 0.0;
     }
-
+}

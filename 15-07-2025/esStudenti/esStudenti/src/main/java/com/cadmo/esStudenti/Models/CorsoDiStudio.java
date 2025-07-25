@@ -12,6 +12,7 @@ public class CorsoDiStudio {
     private List<Esame> esamiCorso;
 
     public CorsoDiStudio(){}
+
     public CorsoDiStudio(int idCorso, String nomeCorso, int durata, List<Esame> esamiCorso) {
         this.idCorso = idCorso;
         this.nomeCorso = nomeCorso;
@@ -50,4 +51,7 @@ public class CorsoDiStudio {
     public void setEsamiCorso(List<Esame> esamiCorso) {
         this.esamiCorso = esamiCorso;
     }
+
+
+
 }
