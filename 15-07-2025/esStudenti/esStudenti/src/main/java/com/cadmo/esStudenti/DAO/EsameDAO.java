@@ -53,7 +53,7 @@ public class EsameDAO {
             listaEsami.add(esame);
             esame.setIdEsame(e_counter++);
             return esame;}
-        else System.out.println("Studente già presente nella lista.");
+        else System.out.println("Esame già presente nella lista.");
         return null;
     }
 

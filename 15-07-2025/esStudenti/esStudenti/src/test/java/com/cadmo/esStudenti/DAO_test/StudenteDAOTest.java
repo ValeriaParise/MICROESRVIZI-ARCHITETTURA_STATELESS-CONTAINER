@@ -27,7 +27,6 @@ public class StudenteDAOTest {
     }
 
 
-    //TEST NON SUPERATO -  ATTENZIONE A COME VENGONO CONFRONTATI I DUE OGGETTI!!!
     @Test
     void testCercaPerID(){
         int id = 4; //         studenti.add(new Studente(4, "Chiara", "Neri", "CHIMICA"));
