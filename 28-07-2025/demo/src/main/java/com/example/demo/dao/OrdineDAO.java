@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class OrdineDAO {
@@ -22,12 +23,18 @@ public OrdineDAO(){
             new OggettiOrdinati(5,1,30)
     );
 
+    List<OggettiOrdinati> listaOggetti2 = Arrays.asList(
+            new OggettiOrdinati(4, 1, 20),
+            new OggettiOrdinati(1,2,100));
+
 ordini.add(new Ordine(1, 100, LocalDateTime.now().minusDays(1),
         listaOggetti1, StatoOrdine.CREATO, totaleOrdine(listaOggetti1)));
+    ordini.add(new Ordine(2, 103, LocalDateTime.now().minusDays(1),
+            listaOggetti1, StatoOrdine.CREATO, totaleOrdine(listaOggetti2)));
 }
 
 
-//Totale Ordine
+    //Totale Ordine
     private double totaleOrdine(List<OggettiOrdinati> listaOggetti){
         double importo = 0;
         for(OggettiOrdinati ogg : listaOggetti){
@@ -36,39 +43,59 @@ ordini.add(new Ordine(1, 100, LocalDateTime.now().minusDays(1),
         return importo;
     }
 
-// Mostra ordini
+    //Calcola il totale
+    public double calcolaTotaleOrdine(Ordine ordine){
+        return totaleOrdine((ordine.getOggetti()));
+    }
+
+
+    // Mostra ordini
     public List<Ordine> mostraTutti(){
-    return ordini;
+        return ordini;
     }
 
     //Cerca Ordine per ID
-    public Ordine cercaPerID(int id){
-    return ordini.stream().filter(ordine -> ordine.getId()==id).
-            findFirst().orElse(null);
+    public Optional<Ordine> cercaPerID(int id){
+        return ordini.stream().filter(ordine -> ordine.getId() == id).
+            findFirst();
     }
 
     // Aggiungi ordine
-    public void aggiungiOrdine(Ordine nuovo){
-        ordini.add(nuovo);
+    public Ordine aggiungiOrdine(Ordine nuovo){
+        if(!ordini.contains(nuovo)){
+            ordini.add(nuovo);
+            return nuovo;
+        }
+        //else System.out.println("Ordine gia presente");
+         return null;
     }
 
     //Modifica ordine
-    public void modificaOrdine(int id,Ordine nuovo){
-    Ordine originale = cercaPerID(id);
-    originale.setData(nuovo.getData());
-    originale.setImportoOrdine(nuovo.getImportoOrdine());
-    originale.setStato(nuovo.getStato());
-    originale.setUserID(nuovo.getUserID());
-    originale.setOggetti(nuovo.getOggetti());
+    public Optional<Ordine> modificaOrdine(int id,Ordine nuovo){
+        Optional<Ordine> esistente = cercaPerID(id);
+        if(esistente.isPresent()){
+            Ordine originale = esistente.get();
+            originale.setData(nuovo.getData());
+            originale.setImportoOrdine(nuovo.getImportoOrdine());
+            originale.setStato(nuovo.getStato());
+            originale.setUserID(nuovo.getUserID());
+            originale.setOggetti(nuovo.getOggetti());
+            return Optional.of(originale);
+        }
+        return Optional.empty();
     }
 
     //Elimina ordine
-    public void eliminaPerID(int id){
-        ordini.remove(id);
+    public boolean eliminaPerID(int id){
+        return ordini.removeIf(ordine -> ordine.getId() == id);
     }
 
     //Elimina tutti
-    public void eliminaTutti(){
-        ordini.clear();
+    public boolean eliminaTutti(){
+        if(ordini.isEmpty()){return false;}
+        else{
+            ordini.clear();
+            return true;
+        }
     }
 }

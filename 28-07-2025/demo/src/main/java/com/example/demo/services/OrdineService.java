@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrdineService {
@@ -23,39 +24,33 @@ public class OrdineService {
         return dao.mostraTutti();
     }
 
+    //Totale Ordine
+    public double calcolaTotaleOrdine(Ordine o){
+        return dao.calcolaTotaleOrdine(o);
+    }
+
     //Cerca Per ID
-    public Ordine cercaPerID(int id){
-        if (dao.ordini.contains(id)){
-            return dao.cercaPerID(id);
-        }
-        return null;
+    public Optional<Ordine> cercaPerID(int id){
+        return dao.cercaPerID(id);
     }
 
     //Aggiungi Ordine
-    public boolean aggiungiOrdine(Ordine o){
-        if(!dao.ordini.contains(o)){
-             dao.aggiungiOrdine(o);
-             return true;
-        }
-        return false;
+    public Ordine aggiungiOrdine(Ordine o){
+        //calcolo totale dell'ordine
+        o.setImportoOrdine(dao.calcolaTotaleOrdine(o));
+        return dao.aggiungiOrdine(o);
     }
 
     //Modifica
-    public Ordine modificaOrdine(int id, Ordine nuovo){
-        if(dao.ordini.contains(id)){
-            dao.modificaOrdine(id,nuovo);
-            return dao.cercaPerID(id);
-        }
-        return null;
+    public Optional<Ordine> modificaOrdine(int id, Ordine nuovo){
+        //calcolo il totale dell'ordine
+        nuovo.setImportoOrdine(dao.calcolaTotaleOrdine(nuovo));
+        return  dao.modificaOrdine(id, nuovo);
     }
 
     //Elimina Ordine
     public boolean eliminaOrdine(int id){
-        if(dao.ordini.contains(id)){
-            dao.eliminaPerID(id);
-            return true;
-        }
-        return false;
+        return dao.eliminaPerID(id);
     }
 
     //Elimina tutti
