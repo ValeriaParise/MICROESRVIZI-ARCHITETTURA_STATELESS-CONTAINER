@@ -1,22 +1,22 @@
 package com.example.demo.model;
 
+import com.example.demo.dao.OggettiDAO;
+
+import java.util.List;
+
 public class OggettiOrdinati {
-    private int idOggetto;
+
+    private Oggetti oggetto;
+
     private int quantita;
-    private double prezzoOggetto;
 
-    public OggettiOrdinati(int idOggetto, int quantita, double prezzoOggetto) {
-        this.idOggetto = idOggetto;
+    public OggettiOrdinati(Oggetti oggetto, int quantita) {
+        this.oggetto = oggetto;
         this.quantita = quantita;
-        this.prezzoOggetto = prezzoOggetto;
     }
 
-    public int getIdOggetto() {
-        return idOggetto;
-    }
-
-    public void setIdOggetto(int idOggetto) {
-        this.idOggetto = idOggetto;
+    public Oggetti getOggetto() {
+        return oggetto;
     }
 
     public int getQuantita() {
@@ -27,11 +27,8 @@ public class OggettiOrdinati {
         this.quantita = quantita;
     }
 
-    public double getPrezzoOggetto() {
-        return prezzoOggetto;
+    public double getPrezzoTotale() {
+        return oggetto.getPrezzo() * quantita;
     }
 
-    public void setPrezzoOggetto(double prezzoOggetto) {
-        this.prezzoOggetto = prezzoOggetto;
-    }
 }

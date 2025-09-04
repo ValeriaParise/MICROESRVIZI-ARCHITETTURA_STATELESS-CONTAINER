@@ -5,9 +5,8 @@ public class Oggetti {
     private String nome;
     private String marca;
     private double prezzo;
-    private String descrizione;
 
-    public Oggetti(double prezzo, String marca, String nome, int id) {
+    public Oggetti(int id, String marca, String nome, double prezzo ) {
         this.prezzo = prezzo;
         this.marca = marca;
         this.nome = nome;
@@ -46,13 +45,7 @@ public class Oggetti {
         this.prezzo = prezzo;
     }
 
-    public String getDescrizione() {
-        return descrizione;
-    }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
 
 
 
