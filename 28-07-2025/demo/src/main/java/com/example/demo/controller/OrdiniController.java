@@ -24,9 +24,9 @@ public class OrdiniController {
 
 
     //Aggiungere filtro per utente
-    @GetMapping()
+    @GetMapping("/cerca-ordini-utenti/{id}")
     public ResponseEntity<List<Ordine>> listaOrdineUtente(@PathVariable int idUtente){
-        List<Ordine> ordiniPerUtente = service.cercaTutti(idUtente);
+        List<Ordine> ordiniPerUtente = service.cercaOrdiniPerUtente(idUtente);
         if (ordiniPerUtente.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -48,7 +48,7 @@ public class OrdiniController {
     public ResponseEntity<Double> calcolaTotaleOrdine(@PathVariable int id){
         Optional<Ordine> ordine = service.cercaPerID(id);
         if(ordine.isPresent()){
-            double totale = service.calcolaTotaleOrdine(ordine.get());
+            double totale = ordine.get().getCarrello().calcolaTotale();
             return ResponseEntity.ok(totale);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -56,8 +56,8 @@ public class OrdiniController {
 
 
     @PostMapping("/aggiungi-ordine")
-    public ResponseEntity<Ordine> aggiungiOrdine(@RequestBody Ordine ordine){
-        Ordine nuovo = service.aggiungiOrdine(ordine);
+    public ResponseEntity<Optional<Ordine>> aggiungiOrdine(@RequestBody Ordine ordine){
+        Optional<Ordine> nuovo = service.aggiungiOrdine(ordine);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
     }
 
@@ -78,12 +78,6 @@ public class OrdiniController {
         }
     }
 
-    @DeleteMapping("/rimuovi-ordini")
-    public ResponseEntity<String> rimuoviTuttiOrdini(){
-        boolean rimossi = service.eliminaTutti();;
-        if(rimossi){return  ResponseEntity.ok("Ordini rimossi");}
-        else {return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nessun ordine da eliminare");}
-    }
 
 
     //

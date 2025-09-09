@@ -2,13 +2,14 @@ package com.example.demo.dao;
 
 
 import com.example.demo.model.Oggetti;
-import com.example.demo.model.OggettiOrdinati;
+import com.example.demo.model.Carrello;
 import com.example.demo.model.Ordine;
 import com.example.demo.model.StatoOrdine;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,55 +23,82 @@ public class OrdineDAO {
 
         this.oggettiDAO = oggettiDAO;
 
+        List<Oggetti> l1 = new ArrayList<>();
+        l1.add(oggettiDAO.trovaPerId(1));
+        l1.add(oggettiDAO.trovaPerId(2));
 
-        List<OggettiOrdinati> listaOggetti1 = Arrays.asList(
-                creaOggettoOrdinato(1, 2),
-                creaOggettoOrdinato(2, 1),
-                creaOggettoOrdinato(5, 1)
-        );
+        List<Oggetti> l2 = new ArrayList<>();
+        l2.add(oggettiDAO.trovaPerId(4));
+        l2.add(oggettiDAO.trovaPerId(5));
 
-        List<OggettiOrdinati> listaOggetti2 = Arrays.asList(
-                creaOggettoOrdinato(4, 1),
-                creaOggettoOrdinato(1, 2));
+        Carrello c1 = new Carrello(l1);
+        Carrello c2 = new Carrello(l2);
 
-        ordini.add(new Ordine(1, 100, LocalDateTime.now().minusDays(1),
-                listaOggetti1, StatoOrdine.CREATO, totaleOrdine(listaOggetti1)));
-        ordini.add(new Ordine(2, 103, LocalDateTime.now().minusDays(1),
-                listaOggetti1, StatoOrdine.CREATO, totaleOrdine(listaOggetti2)));
-    }
+        Ordine o1 = new Ordine(1, 100,LocalDateTime.now(), c1,StatoOrdine.CREATO);
+        Ordine o2 = new Ordine(2, 103, LocalDateTime.now().plusDays(4),c2, StatoOrdine.CREATO);
 
-    // devo recuperare prezzo
-    private OggettiOrdinati creaOggettoOrdinato(int idOggetto, int quantita) {
-        Oggetti oggetto = oggettiDAO.trovaPerId(idOggetto)
-                .orElseThrow(() -> new RuntimeException("Oggetto con id " + idOggetto + " non trovato"));
-        return new OggettiOrdinati(oggetto, quantita);
-    }
-
-    //Totale Ordine
-    private double totaleOrdine(List<OggettiOrdinati> listaOggetti) {
-        double importo = 0;
-        for (OggettiOrdinati ogg : listaOggetti) {
-            importo += ogg.getPrezzoTotale();
-        }
-        return importo;
-    }
-
-    //Calcola il totale
-    public double calcolaTotaleOrdine(Ordine ordine) {
-        return totaleOrdine((ordine.getOggetti()));
     }
 
 
-    // Mostra ordini
-    public List<Ordine> mostraOrdiniPerUtente(int idUser) {
-        return ordini.stream().filter(ordine -> ordine.getUserID()==idUser).toList();
-    }
-
-    //Cerca Ordine per ID
-    public Optional<Ordine> cercaPerID(int id) {
-        return ordini.stream().filter(ordine -> ordine.getId() == id).
+    //cerca ordine per id
+    public Optional<Ordine> getOrdine(int idOrdine){
+        return ordini.stream().
+                filter(ordine -> ordine.getId()==idOrdine).
                 findFirst();
     }
+
+    //recupera importo totale dell'ordine
+    public double totaleOrdine(int idOrdine){
+        Ordine trovato =  getOrdine(idOrdine).get();
+        return trovato.getCarrello().getTotaleCarrello();
+    }
+
+    // cerca ordini per id utente
+    public List<Ordine> getOrdiniIdUtente(int idUtente){
+        return ordini.stream().
+                filter(ordine -> ordine.getUserID()==idUtente)
+                .toList();
+    }
+
+    //aggiungi ordine
+    public Optional<Ordine> aggiungiOrdine(Ordine nuovoOrdine){
+        if(!ordini.contains(nuovoOrdine)){
+            ordini.add(nuovoOrdine);
+        }
+        return Optional.ofNullable(nuovoOrdine);
+    }
+
+    //modifica ordine esistente
+    public Optional<Ordine> modificaOrdine(int idOrdine, Ordine nuovoOrdine){
+        Optional<Ordine> daModificare = getOrdine(idOrdine);
+        if(daModificare.isPresent()){
+            int index = ordini.indexOf(daModificare.get());
+            ordini.set(index,nuovoOrdine);
+        }
+        return getOrdine(idOrdine);
+    }
+
+    //elimina ordine da id
+    public boolean eliminaOrdine(int idOrdine){
+        Optional<Ordine> daElimare = getOrdine(idOrdine);
+        if(daElimare.isEmpty()){return false;}
+        ordini.remove(daElimare.get());
+        return true;
+    }
+
+
+
+
+
+    /*
+
+
+
+
+
+
+
+
 
     // Aggiungi ordine
     public Ordine aggiungiOrdine(Ordine nuovo) {
@@ -91,7 +119,7 @@ public class OrdineDAO {
             originale.setImportoOrdine(nuovo.getImportoOrdine());
             originale.setStato(nuovo.getStato());
             originale.setUserID(nuovo.getUserID());
-            originale.setOggetti(nuovo.getOggetti());
+            originale.getOggettiOrdinati(nuovo.getOggetti());
             return Optional.of(originale);
         }
         return Optional.empty();
@@ -110,6 +138,7 @@ public class OrdineDAO {
             ordini.clear();
             return true;
         }
-    }
+    }*/
+
 }
 

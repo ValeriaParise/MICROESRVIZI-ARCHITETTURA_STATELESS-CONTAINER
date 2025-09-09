@@ -4,13 +4,17 @@ public class Oggetti {
     private int id;
     private String nome;
     private String marca;
-    private double prezzo;
+    private double costoSingoloOggetto;
+    private int quantita;
+    private double costoTotale;
 
-    public Oggetti(int id, String marca, String nome, double prezzo ) {
-        this.prezzo = prezzo;
+    public Oggetti(int id, String marca, String nome, double costoSingoloOggetto, int quantita ) {
+        this.costoSingoloOggetto = costoSingoloOggetto;
         this.marca = marca;
         this.nome = nome;
         this.id = id;
+        this.quantita = quantita;
+        this.costoTotale = getTotale();
     }
 
     public int getId() {
@@ -38,13 +42,18 @@ public class Oggetti {
     }
 
     public double getPrezzo() {
-        return prezzo;
+        return costoSingoloOggetto;
     }
 
     public void setPrezzo(double prezzo) {
-        this.prezzo = prezzo;
+        this.costoSingoloOggetto = prezzo;
     }
 
+
+    //calcolo del totale
+    public double getTotale() {
+        return quantita * costoSingoloOggetto;
+    }
 
     @Override
     public String toString() {
@@ -52,7 +61,9 @@ public class Oggetti {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", marca='" + marca + '\'' +
-                ", prezzo=" + prezzo +
+                ", costoSingoloOggetto=" + costoSingoloOggetto +
+                ", quantita=" + quantita +
+                ", costoTotale=" + costoTotale +
                 '}';
     }
 }

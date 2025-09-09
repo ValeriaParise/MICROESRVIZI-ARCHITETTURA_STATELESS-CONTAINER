@@ -20,46 +20,29 @@ public class OrdineService {
 
 
    //Mostra Ordini Per utente
-    public List<Ordine> cercaTutti(int idUtente){
-        return dao.mostraOrdiniPerUtente(idUtente);
-    }
-
-    //Totale Ordine
-    public double calcolaTotaleOrdine(Ordine o){
-        return dao.calcolaTotaleOrdine(o);
+    public List<Ordine> cercaOrdiniPerUtente(int idUtente){
+        return dao.getOrdiniIdUtente(idUtente);
     }
 
     //Cerca Per ID
     public Optional<Ordine> cercaPerID(int id){
-        return dao.cercaPerID(id);
+        return dao.getOrdine(id);
     }
 
     //Aggiungi Ordine
-    public Ordine aggiungiOrdine(Ordine o){
-        //calcolo totale dell'ordine
-        o.setImportoOrdine(dao.calcolaTotaleOrdine(o));
-        return dao.aggiungiOrdine(o);
+    public Optional<Ordine> aggiungiOrdine(Ordine o){
+        return  dao.aggiungiOrdine(o);
     }
 
     //Modifica
     public Optional<Ordine> modificaOrdine(int id, Ordine nuovo){
-        //calcolo il totale dell'ordine
-        nuovo.setImportoOrdine(dao.calcolaTotaleOrdine(nuovo));
-        return  dao.modificaOrdine(id, nuovo);
+        return dao.modificaOrdine(id,nuovo);
     }
 
     //Elimina Ordine
     public boolean eliminaOrdine(int id){
-        return dao.eliminaPerID(id);
+        return dao.eliminaOrdine(id);
     }
 
-
-    //Elimina tutti
-    public boolean eliminaTutti(){
-        if(!dao.ordini.isEmpty()){
-             dao.eliminaTutti();
-        }
-        return true;
-    }
 
 }
