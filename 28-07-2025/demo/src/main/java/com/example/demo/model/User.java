@@ -64,4 +64,16 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", numeroDiTelefono='" + numeroDiTelefono + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

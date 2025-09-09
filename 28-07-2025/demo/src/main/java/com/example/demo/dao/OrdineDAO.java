@@ -62,8 +62,8 @@ public class OrdineDAO {
 
 
     // Mostra ordini
-    public List<Ordine> mostraTutti() {
-        return ordini;
+    public List<Ordine> mostraOrdiniPerUtente(int idUser) {
+        return ordini.stream().filter(ordine -> ordine.getUserID()==idUser).toList();
     }
 
     //Cerca Ordine per ID

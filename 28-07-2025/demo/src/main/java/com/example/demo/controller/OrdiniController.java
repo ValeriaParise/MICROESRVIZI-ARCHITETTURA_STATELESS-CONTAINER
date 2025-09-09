@@ -22,13 +22,15 @@ public class OrdiniController {
         this.service = service;
     }
 
+
+    //Aggiungere filtro per utente
     @GetMapping()
-    public ResponseEntity<List<Ordine>> listaOrdine(){
-        List<Ordine> ordini = service.cercaTutti();
-        if (ordini.isEmpty()){
+    public ResponseEntity<List<Ordine>> listaOrdineUtente(@PathVariable int idUtente){
+        List<Ordine> ordiniPerUtente = service.cercaTutti(idUtente);
+        if (ordiniPerUtente.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(ordini);
+        return ResponseEntity.ok(ordiniPerUtente);
     }
 
     @GetMapping("/cerca-ordine/{id}")
@@ -83,5 +85,7 @@ public class OrdiniController {
         else {return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nessun ordine da eliminare");}
     }
 
+
+    //
 
 }

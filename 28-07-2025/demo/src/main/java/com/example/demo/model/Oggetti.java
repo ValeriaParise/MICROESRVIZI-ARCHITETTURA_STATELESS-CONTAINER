@@ -46,7 +46,13 @@ public class Oggetti {
     }
 
 
-
-
-
+    @Override
+    public String toString() {
+        return "Oggetti{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", marca='" + marca + '\'' +
+                ", prezzo=" + prezzo +
+                '}';
+    }
 }

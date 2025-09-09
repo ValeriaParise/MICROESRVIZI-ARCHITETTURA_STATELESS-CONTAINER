@@ -7,16 +7,17 @@ public class Ordine {
     private int id;
     private int userID;
     private LocalDateTime data;
-    private List<OggettiOrdinati> oggetti;
+    private OggettiOrdinati oggettiOrdinati;
     private StatoOrdine stato;
     private double importoOrdine;
 
 
-    public Ordine(int id, int userID, LocalDateTime data, List<OggettiOrdinati> oggetti, StatoOrdine stato, double importoOrdine) {
+    public Ordine(int id, int userID, LocalDateTime data, OggettiOrdinati oggettiOrdinati,
+                  StatoOrdine stato, double importoOrdine) {
         this.id = id;
         this.userID = userID;
         this.data = data;
-        this.oggetti = oggetti;
+        this.oggettiOrdinati = oggettiOrdinati;
         this.stato = stato;
         this.importoOrdine = importoOrdine;
     }
@@ -45,12 +46,12 @@ public class Ordine {
         this.data = data;
     }
 
-    public List<OggettiOrdinati> getOggetti() {
-        return oggetti;
+    public OggettiOrdinati getOggettiOrdinati() {
+        return oggettiOrdinati;
     }
 
-    public void setOggetti(List<OggettiOrdinati> oggetti) {
-        this.oggetti = oggetti;
+    public void setOggetti(OggettiOrdinati oggettiOrdianti) {
+        this.oggettiOrdinati = oggettiOrdinati;
     }
 
     public StatoOrdine getStato() {
@@ -67,5 +68,17 @@ public class Ordine {
 
     public void setImportoOrdine(double importoOrdine) {
         this.importoOrdine = importoOrdine;
+    }
+
+    @Override
+    public String toString() {
+        return "Ordine{" +
+                "id=" + id +
+                ", userID=" + userID +
+                ", data=" + data +
+                ", oggetti=" + oggettiOrdinati +
+                ", stato=" + stato +
+                ", importoOrdine=" + importoOrdine +
+                '}';
     }
 }

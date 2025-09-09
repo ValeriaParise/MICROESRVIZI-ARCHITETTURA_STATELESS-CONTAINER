@@ -19,9 +19,9 @@ public class OrdineService {
     }
 
 
-   //Mostra Ordini
-    public List<Ordine> cercaTutti(){
-        return dao.mostraTutti();
+   //Mostra Ordini Per utente
+    public List<Ordine> cercaTutti(int idUtente){
+        return dao.mostraOrdiniPerUtente(idUtente);
     }
 
     //Totale Ordine
@@ -53,9 +53,10 @@ public class OrdineService {
         return dao.eliminaPerID(id);
     }
 
+
     //Elimina tutti
     public boolean eliminaTutti(){
-        if(dao.ordini.size()!=0){
+        if(!dao.ordini.isEmpty()){
              dao.eliminaTutti();
         }
         return true;

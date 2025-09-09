@@ -31,4 +31,16 @@ public class OggettiOrdinati {
         return oggetto.getPrezzo() * quantita;
     }
 
+
+    //Totale ordine
+
+
+
+    @Override
+    public String toString() {
+        return "OggettiOrdinati{" +
+                "oggetto=" + oggetto +
+                ", quantita=" + quantita +
+                '}';
+    }
 }
