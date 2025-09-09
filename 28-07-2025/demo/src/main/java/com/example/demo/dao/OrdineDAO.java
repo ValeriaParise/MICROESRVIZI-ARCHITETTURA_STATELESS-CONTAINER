@@ -6,8 +6,6 @@ import com.example.demo.model.Carrello;
 import com.example.demo.model.Ordine;
 import com.example.demo.model.StatoOrdine;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,34 +21,40 @@ public class OrdineDAO {
 
         this.oggettiDAO = oggettiDAO;
 
-        List<Oggetti> l1 = new ArrayList<>();
-        l1.add(oggettiDAO.trovaPerId(1));
-        l1.add(oggettiDAO.trovaPerId(2));
+        List<Oggetti> l1 = List.of(
+                oggettiDAO.trovaPerId(1),
+                oggettiDAO.trovaPerId(2)
+        );
 
-        List<Oggetti> l2 = new ArrayList<>();
-        l2.add(oggettiDAO.trovaPerId(4));
-        l2.add(oggettiDAO.trovaPerId(5));
+        List<Oggetti> l2 = List.of(
+                oggettiDAO.trovaPerId(4),
+                oggettiDAO.trovaPerId(5)
+        );
 
-        Carrello c1 = new Carrello(l1);
-        Carrello c2 = new Carrello(l2);
+        Carrello c1 = new Carrello(new ArrayList<>(l1));
+        Carrello c2 = new Carrello(new ArrayList<>(l2));
 
         Ordine o1 = new Ordine(1, 100,LocalDateTime.now(), c1,StatoOrdine.CREATO);
         Ordine o2 = new Ordine(2, 103, LocalDateTime.now().plusDays(4),c2, StatoOrdine.CREATO);
 
+        ordini.add(o1);
+        ordini.add(o2);
     }
 
 
     //cerca ordine per id
     public Optional<Ordine> getOrdine(int idOrdine){
         return ordini.stream().
-                filter(ordine -> ordine.getId()==idOrdine).
+                filter(ordine -> ordine.getId() == idOrdine).
                 findFirst();
     }
 
     //recupera importo totale dell'ordine
-    public double totaleOrdine(int idOrdine){
-        Ordine trovato =  getOrdine(idOrdine).get();
-        return trovato.getCarrello().getTotaleCarrello();
+    public Optional<Double> totaleOrdine(int idOrdine){
+        Optional<Ordine> trovato =  getOrdine(idOrdine);
+        if(trovato.isPresent())
+            return Optional.of(trovato.get().getCarrello().getTotaleCarrello());
+        return Optional.empty();
     }
 
     // cerca ordini per id utente
@@ -65,7 +69,7 @@ public class OrdineDAO {
         if(!ordini.contains(nuovoOrdine)){
             ordini.add(nuovoOrdine);
         }
-        return Optional.ofNullable(nuovoOrdine);
+        return Optional.of(nuovoOrdine);
     }
 
     //modifica ordine esistente
@@ -74,8 +78,9 @@ public class OrdineDAO {
         if(daModificare.isPresent()){
             int index = ordini.indexOf(daModificare.get());
             ordini.set(index,nuovoOrdine);
+            return Optional.of(nuovoOrdine);
         }
-        return getOrdine(idOrdine);
+        return  Optional.empty();
     }
 
     //elimina ordine da id
@@ -85,60 +90,6 @@ public class OrdineDAO {
         ordini.remove(daElimare.get());
         return true;
     }
-
-
-
-
-
-    /*
-
-
-
-
-
-
-
-
-
-    // Aggiungi ordine
-    public Ordine aggiungiOrdine(Ordine nuovo) {
-        if (!ordini.contains(nuovo)) {
-            ordini.add(nuovo);
-            return nuovo;
-        }
-        //else System.out.println("Ordine gia presente");
-        return null;
-    }
-
-    //Modifica ordine
-    public Optional<Ordine> modificaOrdine(int id, Ordine nuovo) {
-        Optional<Ordine> esistente = cercaPerID(id);
-        if (esistente.isPresent()) {
-            Ordine originale = esistente.get();
-            originale.setData(nuovo.getData());
-            originale.setImportoOrdine(nuovo.getImportoOrdine());
-            originale.setStato(nuovo.getStato());
-            originale.setUserID(nuovo.getUserID());
-            originale.getOggettiOrdinati(nuovo.getOggetti());
-            return Optional.of(originale);
-        }
-        return Optional.empty();
-    }
-
-    //Elimina ordine
-    public boolean eliminaPerID(int id) {
-        return ordini.removeIf(ordine -> ordine.getId() == id);
-    }
-
-    //Elimina tutti
-    public boolean eliminaTutti() {
-        if (ordini.isEmpty()) {
-            return false;
-        } else {
-            ordini.clear();
-            return true;
-        }
-    }*/
 
 }
 

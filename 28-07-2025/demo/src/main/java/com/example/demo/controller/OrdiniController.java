@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class OrdiniController {
     @Autowired
-    private final OrdineService service;
+    private OrdineService service;
 
     public OrdiniController(OrdineService service) {
         this.service = service;
@@ -24,7 +24,7 @@ public class OrdiniController {
 
 
     //Aggiungere filtro per utente
-    @GetMapping("/cerca-ordini-utenti/{id}")
+    @GetMapping("/cerca-ordini-utenti/{idUtente}")
     public ResponseEntity<List<Ordine>> listaOrdineUtente(@PathVariable int idUtente){
         List<Ordine> ordiniPerUtente = service.cercaOrdiniPerUtente(idUtente);
         if (ordiniPerUtente.isEmpty()){
@@ -46,9 +46,8 @@ public class OrdiniController {
 
     @GetMapping("/totale/{id}")
     public ResponseEntity<Double> calcolaTotaleOrdine(@PathVariable int id){
-        Optional<Ordine> ordine = service.cercaPerID(id);
-        if(ordine.isPresent()){
-            double totale = ordine.get().getCarrello().calcolaTotale();
+        double totale = service.totaleOrdine(id).get();
+        if (totale > 0) {
             return ResponseEntity.ok(totale);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -56,9 +55,12 @@ public class OrdiniController {
 
 
     @PostMapping("/aggiungi-ordine")
-    public ResponseEntity<Optional<Ordine>> aggiungiOrdine(@RequestBody Ordine ordine){
+    public ResponseEntity<Ordine> aggiungiOrdine(@RequestBody Ordine ordine){
         Optional<Ordine> nuovo = service.aggiungiOrdine(ordine);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
+        if(nuovo.isPresent())
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuovo.get());
+        return ResponseEntity.badRequest().build();
+
     }
 
     @PutMapping("/modifica-ordine/{id}")

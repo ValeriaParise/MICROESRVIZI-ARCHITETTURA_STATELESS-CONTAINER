@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class OrdineService {
+
     @Autowired
     private final OrdineDAO dao;
 
@@ -42,6 +43,11 @@ public class OrdineService {
     //Elimina Ordine
     public boolean eliminaOrdine(int id){
         return dao.eliminaOrdine(id);
+    }
+
+    //Calcola totale ordine
+    public Optional<Double> totaleOrdine(int idOrdine){
+        return (dao.totaleOrdine(idOrdine));
     }
 
 
