@@ -16,6 +16,5 @@ public interface OrdineRepository extends JpaRepository<Ordine, Integer> {
 
     List<Ordine> findByStato(String stato);
 
-    List<Ordine> findByUserIdOrderByData(Integer userId);
 
 }
