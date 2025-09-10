@@ -34,11 +34,11 @@ public class OrdineDAO {
         Carrello c1 = new Carrello(new ArrayList<>(l1));
         Carrello c2 = new Carrello(new ArrayList<>(l2));
 
-        Ordine o1 = new Ordine(1, 100,LocalDateTime.now(), c1,StatoOrdine.CREATO);
-        Ordine o2 = new Ordine(2, 103, LocalDateTime.now().plusDays(4),c2, StatoOrdine.CREATO);
+        //Ordine o1 = new Ordine(1, 100,LocalDateTime.now(), c1,StatoOrdine.CREATO);
+        //Ordine o2 = new Ordine(2, 103, LocalDateTime.now().plusDays(4),c2, StatoOrdine.CREATO);
 
-        ordini.add(o1);
-        ordini.add(o2);
+       // ordini.add(o1);
+        //ordini.add(o2);
     }
 
 
@@ -58,11 +58,11 @@ public class OrdineDAO {
     }
 
     // cerca ordini per id utente
-    public List<Ordine> getOrdiniIdUtente(int idUtente){
-        return ordini.stream().
-                filter(ordine -> ordine.getUserID()==idUtente)
-                .toList();
-    }
+    //public List<Ordine> getOrdiniIdUtente(int idUtente){
+        //return ordini.stream().
+            //    filter(ordine -> ordine.getUserID()==idUtente)
+              //  .toList();
+    //}
 
     //aggiungi ordine
     public Optional<Ordine> aggiungiOrdine(Ordine nuovoOrdine){

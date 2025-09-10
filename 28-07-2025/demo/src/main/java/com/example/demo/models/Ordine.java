@@ -15,7 +15,8 @@ public class Ordine {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    private int userID;
+    //Devo puntare alla tabella user, sulla colonna userid
+    private User user;
 
     @Column(name = "data_ordine", nullable = false)
     private LocalDateTime data;
@@ -29,10 +30,10 @@ public class Ordine {
 
 
     public Ordine(){} //Richiesto di jpa
-    public Ordine(int id, int userID, LocalDateTime data, Carrello carrello,
+    public Ordine(int id, User user, LocalDateTime data, Carrello carrello,
                   StatoOrdine stato) {
         this.id = id;
-        this.userID = userID;
+        this.user = user;
         this.data = data;
         this.carrello = carrello;
         this.stato = stato;
@@ -41,16 +42,22 @@ public class Ordine {
 
 
     //DA GESTIRE
+
+
     public int getId() {
         return id;
     }
 
-    public int getUserID() {
-        return userID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getData() {
@@ -65,24 +72,16 @@ public class Ordine {
         return carrello;
     }
 
+    public void setCarrello(Carrello carrello) {
+        this.carrello = carrello;
+    }
+
     public StatoOrdine getStato() {
         return stato;
     }
 
     public void setStato(StatoOrdine stato) {
         this.stato = stato;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Ordine{" +
-                "id=" + id +
-                ", userID=" + userID +
-                ", data=" + data +
-                ", carrello=" + carrello +
-                ", stato=" + stato +
-                '}';
     }
 }
 
