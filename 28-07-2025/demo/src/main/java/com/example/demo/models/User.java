@@ -1,11 +1,31 @@
-package com.example.demo.model;
+package com.example.demo.models;
+
+
+
+import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+@Entity
+@Table(name="user") //nome nel db
 
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // autoincrement
     private int id;
+
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(nullable = false, length = 100)
     private String cognome;
+
+    @Column(length = 250)
     private String indirizzo;
+
+    @Column(length = 20)
     private String numeroDiTelefono;
+
+    @Column(nullable = false, unique = true, length = 150)
     private String email;
 
     public User(int id, String nome, String cognome, String indirizzo, String numeroDiTelefono, String email) {
@@ -17,6 +37,10 @@ public class User {
         this.email = email;
     }
 
+    public User(){}  //Richiesto di jpa
+
+
+    //DA GESTIRE
     public int getId() {
         return id;
     }

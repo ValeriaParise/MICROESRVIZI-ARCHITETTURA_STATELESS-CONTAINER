@@ -1,12 +1,12 @@
-package com.example.demo.dao;
+package com.example.demo.repository;
 
-import com.example.demo.model.User;
+import com.example.demo.models.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class UserDAO {
     private List<User> users = new ArrayList<>();
 

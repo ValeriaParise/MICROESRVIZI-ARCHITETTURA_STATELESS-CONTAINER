@@ -1,6 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.models;
 
-public class Oggetti {
+public class OggettiOLD {
     private int id;
     private String nome;
     private String marca;
@@ -8,7 +8,7 @@ public class Oggetti {
     private int quantita;
     private double costoTotale;
 
-    public Oggetti(int id, String marca, String nome, double costoSingoloOggetto, int quantita ) {
+    public OggettiOLD(int id, String marca, String nome, double costoSingoloOggetto, int quantita ) {
         this.costoSingoloOggetto = costoSingoloOggetto;
         this.marca = marca;
         this.nome = nome;

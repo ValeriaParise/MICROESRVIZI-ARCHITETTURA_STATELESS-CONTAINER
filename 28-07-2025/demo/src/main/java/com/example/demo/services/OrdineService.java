@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.dao.OrdineDAO;
-import com.example.demo.model.Ordine;
+import com.example.demo.repository.OrdineDAO;
+import com.example.demo.models.Ordine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

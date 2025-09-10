@@ -1,17 +1,17 @@
-package com.example.demo.dao;
+package com.example.demo.repository;
 
 
-import com.example.demo.model.Oggetti;
-import com.example.demo.model.Carrello;
-import com.example.demo.model.Ordine;
-import com.example.demo.model.StatoOrdine;
+import com.example.demo.models.Oggetti;
+import com.example.demo.models.Carrello;
+import com.example.demo.models.Ordine;
+import com.example.demo.models.StatoOrdine;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+//@Component
 public class OrdineDAO {
     public List<Ordine> ordini = new ArrayList<>();
     private final OggettiDAO oggettiDAO;

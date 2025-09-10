@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Ordine;
+import com.example.demo.models.Ordine;
 import com.example.demo.services.OrdineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

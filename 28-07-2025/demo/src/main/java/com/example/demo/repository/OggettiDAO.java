@@ -1,13 +1,12 @@
-package com.example.demo.dao;
+package com.example.demo.repository;
 
-import com.example.demo.model.Oggetti;
+import com.example.demo.models.Oggetti;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-@Component
+//@Component
 public class OggettiDAO {
     private List<Oggetti> oggetti = new ArrayList<>();
 

@@ -1,17 +1,5 @@
 package com.example.demo.DAOTEST;
 
-import com.example.demo.dao.OggettiDAO;
-import com.example.demo.dao.OrdineDAO;
-import com.example.demo.model.Carrello;
-import com.example.demo.model.Ordine;
-import com.example.demo.model.StatoOrdine;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
