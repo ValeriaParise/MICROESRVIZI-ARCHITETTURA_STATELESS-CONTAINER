@@ -17,7 +17,7 @@ public class Carrello {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //fetch eager fa caricare ad hibernate i dati (eager)subito
     @JoinColumn(name = "carrello_id") // crea la foreign key su Oggetti
-    private List<Oggetti> carrello;
+    private List<Oggetti> oggettiNelCarrello;
 
 
     @Transient // non salvare nel DB, è calcolato
@@ -26,28 +26,29 @@ public class Carrello {
     // Costruttore vuoto richiesto da JPA
     public Carrello() {}
 
-    public Carrello(List<Oggetti> carrello) {
-        this.carrello = carrello;
+    public Carrello(List<Oggetti> oggettiNelCarrello ) {
+        this.oggettiNelCarrello = oggettiNelCarrello;
         totaleCarrello = calcolaTotale();
     }
 
 
     public double calcolaTotale(){
         double tot = 0;
-        for (Oggetti o : carrello){
+        for (Oggetti o : oggettiNelCarrello){
             tot += o.getTotale();
         }
+        tot = Math.round(tot * 100.0) / 100.0;
         return tot;
     }
 
 
     //DA GESTIRE
     public List<Oggetti> getCarrello() {
-        return carrello;
+        return oggettiNelCarrello;
     }
 
     public void setCarrello(List<Oggetti> carrello) {
-        this.carrello = carrello;
+        this.oggettiNelCarrello = carrello;
     }
 
     public double getTotaleCarrello() {
@@ -62,7 +63,7 @@ public class Carrello {
     @Override
     public String toString() {
         return "Carrello{" +
-                "carrello=" + carrello +
+                "carrello=" + oggettiNelCarrello +
                 ", totaleCarrello=" + totaleCarrello +
                 '}';
     }

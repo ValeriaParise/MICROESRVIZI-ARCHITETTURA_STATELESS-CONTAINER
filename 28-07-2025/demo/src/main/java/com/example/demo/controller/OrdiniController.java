@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.Ordine;
+import com.example.demo.models.StatoOrdine;
 import com.example.demo.services.OrdineService;
-import com.example.demo.services.OrdineServiceOLD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/ordini")
+
 public class OrdiniController {
 
     private OrdineService ordineService;
@@ -34,8 +35,13 @@ public class OrdiniController {
     //GET ordine per stato
     @GetMapping("/stato/{stato}")
     public ResponseEntity<List<Ordine>> getOrdineByUserId(@PathVariable String stato){
-        List<Ordine> listaOrdini = ordineService.getOrdineByStato(stato);
-        return ResponseEntity.ok(listaOrdini);
+        try {
+            StatoOrdine s = StatoOrdine.valueOf(stato.toUpperCase());
+            List<Ordine> listaOrdini = ordineService.getOrdineByStato(s);
+            return ResponseEntity.ok(listaOrdini);
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     //POSt crea

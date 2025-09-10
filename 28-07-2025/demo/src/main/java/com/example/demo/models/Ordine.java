@@ -41,7 +41,6 @@ public class Ordine {
     }
 
 
-    //DA GESTIRE
 
 
     public int getId() {

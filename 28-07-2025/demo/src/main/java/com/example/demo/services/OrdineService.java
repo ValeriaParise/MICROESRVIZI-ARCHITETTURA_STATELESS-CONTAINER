@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
+import com.example.demo.models.Carrello;
 import com.example.demo.models.Ordine;
+import com.example.demo.models.StatoOrdine;
 import com.example.demo.repository.OrdineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +24,16 @@ public class OrdineService {
 
     //cerca ordine di un utente
     public List<Ordine> getOrdineByUserId(Integer userId){
-        return  ordineRepository.findByUserId(userId);
+        List<Ordine> trovati =  ordineRepository.findByUserId(userId);
+        aggiornaTotaleCarrello(trovati);
+        return trovati;
     }
 
     //filtra ordine per stato
-    public List<Ordine> getOrdineByStato(String stato){
-        return ordineRepository.findByStato(stato);
+    public List<Ordine> getOrdineByStato(StatoOrdine stato){
+        List<Ordine> trovati =  ordineRepository.findByStato(stato);
+       aggiornaTotaleCarrello(trovati);
+        return trovati;
     }
 
     //Cerca ordine tramite idOrdine
@@ -67,4 +73,15 @@ public class OrdineService {
         return false;
     }
 
+
+    private void aggiornaTotaleCarrello(List<Ordine> ordini) {
+        if(ordini == null) return;
+
+        for(Ordine o : ordini) {
+            Carrello c = o.getCarrello();
+            if(c != null) {
+                c.setTotaleCarrello(c.calcolaTotale());
+            }
+        }
+    }
 }
