@@ -30,9 +30,8 @@ public class Ordine {
 
 
     public Ordine(){} //Richiesto di jpa
-    public Ordine(int id, User user, LocalDateTime data, Carrello carrello,
+    public Ordine( User user, LocalDateTime data, Carrello carrello,
                   StatoOrdine stato) {
-        this.id = id;
         this.user = user;
         this.data = data;
         this.carrello = carrello;

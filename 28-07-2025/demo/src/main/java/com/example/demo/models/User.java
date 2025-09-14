@@ -1,12 +1,12 @@
 package com.example.demo.models;
 
-
-
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.processing.Pattern;
 
 @Entity
-@Table(name="user") //nome nel db
+@Table(name="utenti") //nome nel db
 
 public class User {
     @Id
@@ -14,22 +14,25 @@ public class User {
     private int id;
 
     @Column(nullable = false, length = 100)
+    @NotBlank
     private String nome;
 
     @Column(nullable = false, length = 100)
+    @NotBlank
     private String cognome;
 
     @Column(length = 250)
     private String indirizzo;
 
     @Column(length = 20)
+    //@Pattern(regexp = "\\+?[0-9]*", message = "Numero di telefono non valido")
     private String numeroDiTelefono;
 
     @Column(nullable = false, unique = true, length = 150)
+    @Email(message = "Email non valida")
     private String email;
 
-    public User(int id, String nome, String cognome, String indirizzo, String numeroDiTelefono, String email) {
-        this.id = id;
+    public User( String nome, String cognome, String indirizzo, String numeroDiTelefono, String email) {
         this.nome = nome;
         this.cognome = cognome;
         this.indirizzo = indirizzo;

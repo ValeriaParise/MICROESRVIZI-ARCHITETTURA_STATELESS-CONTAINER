@@ -51,10 +51,10 @@ public class OrdineService {
         Optional<Ordine> originale = ordineRepository.findById(id);
         if(originale.isPresent()){
             Ordine o = originale.get();
-            o.setStato(nuovo.getStato());
-            o.setData(nuovo.getData());
-            o.setUser(nuovo.getUser());
-            o.setCarrello(nuovo.getCarrello());
+            if(nuovo.getStato() != null) o.setStato(nuovo.getStato());
+            if (nuovo.getData() != null) o.setData(nuovo.getData());
+            if (nuovo.getUser() != null) o.setUser(nuovo.getUser());
+            if (nuovo.getCarrello() != null) o.setCarrello(nuovo.getCarrello());
 
             //aggiorno lo stato o con le nuove modifiche
             Ordine aggiornato = ordineRepository.save(o);
@@ -80,7 +80,7 @@ public class OrdineService {
         for(Ordine o : ordini) {
             Carrello c = o.getCarrello();
             if(c != null) {
-                c.setTotaleCarrello(c.calcolaTotale());
+                c.calcolaTotale();
             }
         }
     }
