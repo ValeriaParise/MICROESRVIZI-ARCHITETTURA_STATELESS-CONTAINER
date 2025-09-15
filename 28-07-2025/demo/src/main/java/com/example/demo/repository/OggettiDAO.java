@@ -1,3 +1,5 @@
+
+/*
 package com.example.demo.repository;
 
 import com.example.demo.models.Oggetti;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@Component
+
 public class OggettiDAO {
     private List<Oggetti> oggetti = new ArrayList<>();
 
@@ -30,3 +33,4 @@ public class OggettiDAO {
 
 
 }
+*/
