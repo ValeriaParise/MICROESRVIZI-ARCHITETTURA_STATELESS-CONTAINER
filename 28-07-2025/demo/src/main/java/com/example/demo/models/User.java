@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // autoincrement
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, length = 100)
     private String nome;

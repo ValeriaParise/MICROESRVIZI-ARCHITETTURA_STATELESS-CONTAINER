@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/ordini")
-
 public class OrdiniController {
 
     private OrdineService ordineService;

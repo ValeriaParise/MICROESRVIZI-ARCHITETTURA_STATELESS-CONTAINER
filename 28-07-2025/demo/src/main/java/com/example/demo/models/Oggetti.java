@@ -9,7 +9,7 @@ public class Oggetti {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // autoincrement
-    private int id;
+    private Integer id;
 
     @Column(name = "modello" , nullable = false, length = 100)
     private String nome;

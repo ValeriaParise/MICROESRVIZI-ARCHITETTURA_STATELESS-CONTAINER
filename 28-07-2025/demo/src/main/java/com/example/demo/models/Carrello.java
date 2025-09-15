@@ -12,7 +12,7 @@ public class Carrello {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement
-    private int id;
+    private Integer id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //fetch eager fa caricare ad hibernate i dati (eager)subito
