@@ -18,4 +18,6 @@ public interface OggettiRepository extends JpaRepository<Oggetti,Integer> {
     //Personalizzati
     List<Oggetti> findByMarcaContainingIgnoreCase(String marca);
     List<Oggetti> findByNomeContainingIgnoreCase(String nome);
+
+
 }

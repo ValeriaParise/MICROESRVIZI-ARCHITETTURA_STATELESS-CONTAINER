@@ -59,6 +59,7 @@ public class Oggetti {
     }
 
     public double getCostoSingoloOggetto() { return costoSingoloOggetto; }
+
     public void setCostoSingoloOggetto(double costoSingoloOggetto)
     { this.costoSingoloOggetto = costoSingoloOggetto; }
 

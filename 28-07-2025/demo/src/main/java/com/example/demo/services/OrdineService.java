@@ -1,8 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.models.Carrello;
+import com.example.demo.models.Oggetti;
 import com.example.demo.models.Ordine;
 import com.example.demo.models.StatoOrdine;
+import com.example.demo.repository.OggettiRepository;
 import com.example.demo.repository.OrdineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,19 @@ import java.util.Optional;
 public class OrdineService {
 
     private final OrdineRepository ordineRepository;
+    private final OggettiRepository oggettiRepository;
 
     @Autowired
-    public OrdineService(OrdineRepository ordineRepository) {
+    public OrdineService(OrdineRepository ordineRepository, OggettiRepository oggettiRepository) {
         this.ordineRepository = ordineRepository;
+        this.oggettiRepository = oggettiRepository;
+    }
+
+
+    //cerca ordine per marca
+    public List<Oggetti> getOrdineByMarca(String marca){
+        List<Oggetti> trovati = oggettiRepository.findByMarcaContainingIgnoreCase(marca);
+        return trovati;
     }
 
 
