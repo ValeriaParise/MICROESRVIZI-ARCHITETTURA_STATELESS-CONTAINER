@@ -65,6 +65,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>7.1.1.Final</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
