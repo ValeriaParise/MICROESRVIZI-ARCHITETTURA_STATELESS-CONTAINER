@@ -18,4 +18,6 @@ public interface OrdineRepository extends JpaRepository<Ordine, Integer> {
     List<Ordine> findByStato(StatoOrdine stato);
 
 
+    //List<Ordine> findByDataBetween(LocalDateTime start, LocalDateTime end);
+
 }

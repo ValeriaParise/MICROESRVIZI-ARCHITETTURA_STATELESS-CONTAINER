@@ -20,21 +20,18 @@ public class Oggetti {
     private double costoSingoloOggetto;
     @Column
     private int quantita;
-    @Transient
-    private double costoTotale;
+
 
 
     // Costruttore vuoto richiesto da JPA
     public Oggetti() {}
 
 
-    public Oggetti(int id, String marca, String nome, double costoSingoloOggetto, int quantita ) {
+    public Oggetti( String marca, String nome, double costoSingoloOggetto, int quantita ) {
         this.costoSingoloOggetto = costoSingoloOggetto;
         this.marca = marca;
         this.nome = nome;
-        this.id = id;
         this.quantita = quantita;
-        this.costoTotale = getTotale();
     }
 
     public int getId() {
@@ -61,14 +58,9 @@ public class Oggetti {
         this.marca = marca;
     }
 
-    public double getPrezzo() {
-        return costoSingoloOggetto;
-    }
-
-    public void setPrezzo(double prezzo) {
-        this.costoSingoloOggetto = prezzo;
-    }
-
+    public double getCostoSingoloOggetto() { return costoSingoloOggetto; }
+    public void setCostoSingoloOggetto(double costoSingoloOggetto)
+    { this.costoSingoloOggetto = costoSingoloOggetto; }
 
     //calcolo del totale
     public double getTotale() {
@@ -83,7 +75,7 @@ public class Oggetti {
                 ", marca='" + marca + '\'' +
                 ", costoSingoloOggetto=" + costoSingoloOggetto +
                 ", quantita=" + quantita +
-                ", costoTotale=" + costoTotale +
+                ", costoTotale=" + getTotale() +
                 '}';
     }
 }

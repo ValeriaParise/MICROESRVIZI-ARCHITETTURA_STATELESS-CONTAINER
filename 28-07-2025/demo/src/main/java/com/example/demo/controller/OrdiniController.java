@@ -18,11 +18,9 @@ public class OrdiniController {
 
     private OrdineService ordineService;
 
-    @Autowired
-    public void OrdineController(OrdineService ordineService) {
+    public OrdiniController(OrdineService ordineService) {
         this.ordineService = ordineService;
     }
-
 
     //GET ordine per idUser
     @GetMapping("/user/{userId}")
@@ -33,7 +31,7 @@ public class OrdiniController {
 
     //GET ordine per stato
     @GetMapping("/stato/{stato}")
-    public ResponseEntity<List<Ordine>> getOrdineByUserId(@PathVariable String stato){
+    public ResponseEntity<List<Ordine>> getOrdineByStato(@PathVariable String stato){
         try {
             StatoOrdine s = StatoOrdine.valueOf(stato.toUpperCase());
             List<Ordine> listaOrdini = ordineService.getOrdineByStato(s);
@@ -47,7 +45,7 @@ public class OrdiniController {
     @PostMapping
     public ResponseEntity<Ordine> creaOrdine(@RequestBody Ordine ordine){
          Ordine creato = ordineService.saveOrdine(ordine);
-         return ResponseEntity.ok(creato);
+         return ResponseEntity.status(HttpStatus.CREATED).body(creato);
     }
 
     //PUT modifica
@@ -64,7 +62,7 @@ public class OrdiniController {
 
     //Delete ordine
     @DeleteMapping("/{idOrdine}")
-    public ResponseEntity<String> deleteORdine(@PathVariable Integer idOrdine){
+    public ResponseEntity<String> deleteOrdine(@PathVariable Integer idOrdine){
         if(ordineService.getOrdineById(idOrdine).isPresent()){
             ordineService.deleteOrdine(idOrdine);
             return ResponseEntity.ok("Ordine Rimosso");

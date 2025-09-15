@@ -16,6 +16,6 @@ public interface OggettiRepository extends JpaRepository<Oggetti,Integer> {
     // save(Oggetti o), delete(Oggetti o)
 
     //Personalizzati
-    List<Oggetti> findByMarca(String marca);
-    List<Oggetti> findByNome(String nome);
+    List<Oggetti> findByMarcaContainingIgnoreCase(String marca);
+    List<Oggetti> findByNomeContainingIgnoreCase(String nome);
 }
