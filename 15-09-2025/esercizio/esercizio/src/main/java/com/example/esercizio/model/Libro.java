@@ -2,8 +2,7 @@ package com.example.esercizio.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.util.Date;
+
 
 @Entity
 @Table(name ="Libro")
@@ -19,7 +18,7 @@ public class Libro {
     @Column(name = "autore")
     private String autore;
 
-    @Column(name = "isbn")
+    @Column(name = "isbn", unique = true, nullable = false)
     private String isbn;
 
     @Column(name = "anno_pubblicazione")
@@ -28,9 +27,11 @@ public class Libro {
     @Column(name = "editore")
     private String editore;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "genere")
     private Genere genere;
 
+    public Libro(){}
 
     public Libro(String titolo, String autore, String isbn, int annoPubblicazione, String editore, Genere genere) {
         this.titolo = titolo;

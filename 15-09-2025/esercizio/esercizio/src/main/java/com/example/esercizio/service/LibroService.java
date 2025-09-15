@@ -1,6 +1,7 @@
 package com.example.esercizio.service;
 
 
+import com.example.esercizio.model.Genere;
 import com.example.esercizio.model.Libro;
 import com.example.esercizio.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,64 +17,66 @@ public class LibroService {
     private LibroRepository libroRepository;
 
 
-
-
     // FIND
-    public Optional<List<Libro>> findAll(){
-        return Optional.of(libroRepository.findAll());
+    public List<Libro> findAll(){
+        return libroRepository.findAll();
     }
     public Optional<Libro> findById(Long id){
         return libroRepository.findById(id);
     }
 
-    public Optional<List<Libro>> findByTitolo(String titolo){
-        return libroRepository.getByTitoloContainingIgnoreCase(titolo);
+    public List<Libro> findByTitolo(String titolo){
+        return libroRepository.findByTitoloIgnoreCase(titolo);
     }
 
-    public Optional<List<Libro>> findByAutore(String autore){
-        return libroRepository.getByAutoreContainingIgnoreCase(autore);
+    public List<Libro> findByAutore(String autore){
+        return libroRepository.findByAutoreContainingIgnoreCase(autore);
     }
+
+
 
     public Optional<Libro> findByIsbn (String isbn){
-        return libroRepository.getByIsbnContainingIgnoreCase(isbn);
+        return libroRepository.findByIsbnIgnoreCase(isbn);
     }
 
-    public Optional<List<Libro>> findByAnno(int anno){
-        return libroRepository.getByAnnoPubblicazione(anno);
+    public List<Libro> findByAnno(int anno){
+        return libroRepository.findByAnnoPubblicazione(anno);
     }
 
-    public Optional<List<Libro>> findByEditore(String editore){
-        return libroRepository.getByEditoreContainingIgnoreCase(editore);
+    public List<Libro> findByEditore(String editore){
+        return libroRepository.findByEditoreContainingIgnoreCase(editore);
     }
 
-    public Optional<List<Libro>> findByGenere(String genere){
-        return libroRepository.getByGenereContainingIgnoreCase(genere);
+    public List<Libro> findByGenere(Genere genere) {
+        return libroRepository.findByGenere(genere);
     }
 
     // Create
-
-    public Optional<Libro> createLibro(Libro libro){
-        return Optional.of(libroRepository.save(libro));
+    public Libro createLibro(Libro libro) {
+        return libroRepository.save(libro);
     }
-
     // Update
 
-    public Optional<Libro> updateLibro(Long id, Libro nuovo){
-        int index = libroRepository.findAll().indexOf(findById(id).get());
-        List<Libro> libri = libroRepository.findAll();
-        return Optional.ofNullable(libri.set(index, nuovo));
+    public Optional<Libro> updateLibro(Long id, Libro nuovo) {
+        return libroRepository.findById(id).map(libro -> {
+            libro.setTitolo(nuovo.getTitolo());
+            libro.setAutore(nuovo.getAutore());
+            libro.setIsbn(nuovo.getIsbn());
+            libro.setAnnoPubblicazione(nuovo.getAnnoPubblicazione());
+            libro.setEditore(nuovo.getEditore());
+            libro.setGenere(nuovo.getGenere());
+            return libroRepository.save(libro);
+        });
     }
 
     //Delete
 
     public boolean delete(Long id){
-        Optional<Libro> find = libroRepository.findById(id);
-        if(find.isPresent()) {
-            libroRepository.delete(find.get());
+        if(libroRepository.existsById(id)){
+            libroRepository.deleteById(id);
             return true;
         }
         return false;
-        //return  libroRepository.existsById(find.get().getId());
     }
 
 }
